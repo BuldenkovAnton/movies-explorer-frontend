@@ -2,6 +2,8 @@
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
   color: #fff;
+  font-style: normal;
+  font-weight: 400;
   font-size: 14px;
   background-color: #202020;
   -moz-osx-font-smoothing: grayscale;
@@ -13,24 +15,35 @@
 }
 
 .page__header {
-  width: 100%;
+  width: calc(100% - 2 * 70px);
   max-width: 1140px;
-  margin: 0 auto;
-  padding: 18px 70px;
+  margin: 18px auto 0;
 }
 
-@media screen and (max-width: 768px) {
-  .page__header {
-    max-width: 708px;
-    padding: 18px 30px;
-  }
+.page__promo {
+  box-sizing: border-box;
+  width: calc(100% - 2 * 20px);
+  max-width: 1200px;
+  margin: 20px auto 0;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 1250px) {
   .page__header {
-    max-width: 292px;
-    padding: 18px 14px;
+    width: calc(100% - 2 * 30px);
   }
+
+}
+
+@media screen and (max-width: 750px) {
+  .page__header {
+    width: calc(100% - 2 * 14px);
+  }
+
+  .page__promo {
+    width: calc(100% - 2 * 14px);
+    margin: 14px 14px 0;
+  }
+
 }
 
 
