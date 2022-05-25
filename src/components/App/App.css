@@ -21,15 +21,25 @@
 }
 
 .page__promo {
-  box-sizing: border-box;
   width: calc(100% - 2 * 20px);
   max-width: 1200px;
   margin: 20px auto 0;
 }
 
+.page__about-project {
+  width: calc(100% - 2 * 70px);
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
 @media screen and (max-width: 1250px) {
   .page__header {
     width: calc(100% - 2 * 30px);
+  }
+
+  .page__about-project {
+    width: calc(100% - 2 * 50px);
+    margin: 0 auto;
   }
 
 }
@@ -43,6 +53,12 @@
     width: calc(100% - 2 * 14px);
     margin: 14px 14px 0;
   }
+
+  .page__about-project {
+    width: calc(100% - 2 * 18px);
+    margin: 0 auto;
+  }
+
 
 }
 

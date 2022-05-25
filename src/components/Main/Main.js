@@ -1,4 +1,5 @@
 import React from "react";
+import AboutProject from "../AboutProject/AboutProject";
 import Header from "../Header/Header";
 import Menu from "../Menu/Menu";
 import MenuItem from "../MenuItem/MenuItem";
@@ -25,6 +26,7 @@ function Main(props) {
         </Menu>
       </Header>
       <Promo />
+      <AboutProject />
     </>
   );
 }
