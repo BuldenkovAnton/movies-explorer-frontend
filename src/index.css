@@ -1,2 +1,7 @@
 @import "./vendor/normalize.css";
 @import "./vendor/fonts.css";
+@import "./components/App/App.css";
+@import "./components/Header/Header.css";
+@import "./components/Logo/Logo.css";
+@import "./components/Menu/Menu.css";
+@import "./components/MenuItem/MenuItem.css";
