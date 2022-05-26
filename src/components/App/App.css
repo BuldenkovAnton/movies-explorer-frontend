@@ -32,6 +32,12 @@
   margin: 0 auto;
 }
 
+.page__about-me {
+  width: calc(100% - 2 * 70px);
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
 @media screen and (max-width: 1250px) {
   .page__header {
     width: calc(100% - 2 * 30px);
@@ -42,6 +48,10 @@
     margin: 0 auto;
   }
 
+  .page__about-me {
+    width: calc(100% - 2 * 50px);
+    margin: 0 auto;
+  }
 }
 
 @media screen and (max-width: 750px) {
@@ -59,7 +69,10 @@
     margin: 0 auto;
   }
 
-
+  .page__about-me {
+    width: calc(100% - 2 * 14px);
+    margin: 0 auto;
+  }
 }
 
 
