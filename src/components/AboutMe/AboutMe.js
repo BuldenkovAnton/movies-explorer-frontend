@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Image from '../../images/foto.jpg';
+import Portfolio from "../Portfolio/Portfolio";
 import SectionTitle from "../SectionTitle/SectionTitle";
 
 function AboutMe() {
   return (
-    <div className="page__about-me about-me">
+    <section className="page__about-me about-me">
       <SectionTitle mixClass="about-me__title">
         Студент
       </SectionTitle>
@@ -35,8 +36,11 @@ function AboutMe() {
 
         <img className="about-me__foto" src={Image} alt="Антон" />
       </div>
-    </div>
 
+      <Portfolio />
+
+
+    </section>
   );
 }
 

@@ -1,19 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-function NavTab() {
+function NavTab({ modificatorClass, children }) {
+  const ulClass = ['navtab', modificatorClass].join(' ');
+
   return (
-    <div className="navtab">
-      <Link to="#" className="navtab__link">
-        О проекте
-      </Link>
-      <Link to="#" className="navtab__link">
-        Технологии
-      </Link>
-      <Link to="#" className="navtab__link">
-        Студент
-      </Link>
-    </div>
+    <ul className={ulClass}>
+      { children }
+    </ul>
   );
 }
 

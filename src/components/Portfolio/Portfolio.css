@@ -1,0 +1,24 @@
+.portfolio {
+
+}
+
+.portfolio__title {
+
+}
+
+.portfolio__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.portfolio__item {
+  position: relative;
+  box-sizing: border-box;
+  padding: 0 0 19px;
+  border: 1px solid #424242;
+}
+
+.portfolio__link {
+
+}
