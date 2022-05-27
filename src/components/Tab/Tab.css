@@ -1,0 +1,37 @@
+.tab {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 17px;
+  background: #303030;
+  border-radius: 10px;
+}
+
+.tab:last-child {
+  margin: 0;
+}
+
+.tab_place_promo {
+  margin: 0 10px 0 0;
+}
+
+.tab__link {
+  color: #fff;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 500px) {
+  .tab_place_promo {
+    margin: 0 6px 0 0;
+  }
+
+  .navtab__link {
+    font-size: 10px;
+    line-height: 16px;
+    padding: 5px 13.5px;
+    margin: 0 6px 0 0;
+  }
+}
