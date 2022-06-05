@@ -10,5 +10,8 @@
 @import "./components/NavTab/NavTab.css";
 @import "./components/SectionTitle/SectionTitle.css";
 @import "./components/AboutProject/AboutProject.css";
+@import "./components/Techs/Techs.css";
 @import "./components/AboutMe/AboutMe.css";
+
+@import "./components/Page404/Page404.css";
 
