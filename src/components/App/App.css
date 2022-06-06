@@ -32,10 +32,30 @@
   margin: 0 auto;
 }
 
+.page__techs {
+  width: calc(100% - 2 * 70px);
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
 .page__about-me {
   width: calc(100% - 2 * 70px);
   max-width: 1140px;
   margin: 0 auto;
+}
+
+.page__footer {
+  width: calc(100% - 2 * 70px);
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.page__login {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 396px;
+  margin: 0 auto;
+  padding: 70px 0 0;
 }
 
 @media screen and (max-width: 1250px) {
@@ -48,7 +68,17 @@
     margin: 0 auto;
   }
 
+  .page__techs {
+    width: calc(100% - 2 * 50px);
+    margin: 0 auto;
+  }
+
   .page__about-me {
+    width: calc(100% - 2 * 50px);
+    margin: 0 auto;
+  }
+
+  .page__footer {
     width: calc(100% - 2 * 50px);
     margin: 0 auto;
   }
@@ -69,9 +99,23 @@
     margin: 0 auto;
   }
 
+  .page__techs {
+    width: calc(100% - 2 * 18px);
+    margin: 0 auto;
+  }
+
   .page__about-me {
     width: calc(100% - 2 * 14px);
     margin: 0 auto;
+  }
+
+  .page__footer {
+    width: calc(100% - 2 * 14px);
+    margin: 0 auto;
+  }
+
+  .page__login {
+    padding: 56px 30px 0;
   }
 }
 
