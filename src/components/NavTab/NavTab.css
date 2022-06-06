@@ -1,5 +1,7 @@
 .navtab {
-  display: flex;
+  display: grid;
+  grid-template-columns: max-content;
+  grid-auto-columns: max-content;
   margin: 0;
   padding: 0;
   list-style: none;

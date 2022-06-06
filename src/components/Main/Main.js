@@ -1,15 +1,17 @@
 import React from "react";
 import AboutMe from "../AboutMe/AboutMe";
 import AboutProject from "../AboutProject/AboutProject";
+import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import Menu from "../Menu/Menu";
 import MenuItem from "../MenuItem/MenuItem";
 import Promo from "../Promo/Promo";
+import Techs from "../Techs/Techs";
 
 function Main(props) {
   return (
     <>
-      <Header>
+      <Header mixClass="page__header">
         <Menu mixClass="header__menu">
           <MenuItem
             link="/signup"
@@ -28,8 +30,9 @@ function Main(props) {
       </Header>
       <Promo />
       <AboutProject />
-
+      <Techs />
       <AboutMe />
+      <Footer/>
     </>
   );
 }

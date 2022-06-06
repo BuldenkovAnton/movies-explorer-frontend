@@ -11,6 +11,11 @@ function Tab({ modificatorClass, title, href = '' }) {
           { title }
         </Link>
       )}
+      {!href && (
+        <span className="tab__link">
+          { title }
+        </span>
+      )}
     </li>
   );
 }

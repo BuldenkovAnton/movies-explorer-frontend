@@ -1,9 +1,11 @@
 import React from "react";
 import Logo from "../Logo/Logo";
 
-function Header({ children }) {
+function Header({ mixClass = '', children }) {
+  const headerClass = ['header', mixClass].join(' ');
+
   return (
-    <header className="page__header header">
+    <header className={headerClass}>
       <Logo />
       { children }
     </header>
