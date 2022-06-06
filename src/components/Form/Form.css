@@ -1,16 +1,14 @@
 
 .form__fieldset {
   padding: 0;
-  margin: 0 0 24px;
+  margin: 0;
   border: 0;
 }
 
-.form__fieldset:last-child {
-  margin: 0 0 42px;
-}
-
 .form__label {
+  display: block;
   width: 100%;
+  margin: 0 0 24px;
   font-weight: 400;
   font-size: 10px;
   line-height: 12px;
@@ -39,7 +37,7 @@
   line-height: 15px;
   color: #fff;
   width: 100%;
-  margin: 179px 0 0;
+  margin: 0;
   padding: 13px 0 15px;
   text-align: center;
   background: #4285F4;
@@ -51,6 +49,6 @@
   .form__button {
     font-size: 12px;
     line-height: 15px;
-    margin: 267px 0 0;
   }
 }
+

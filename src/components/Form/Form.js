@@ -1,8 +1,10 @@
 import React from "react";
 
-function Form({ name, onSubmit, children}) {
+function Form({ name, mixClass, onSubmit, children}) {
+  const formClass = ['form', mixClass].join(' ');
+
   return (
-    <form name={name} className="form" onSubmit={onSubmit} noValidate>
+    <form name={name} className={formClass} onSubmit={onSubmit} noValidate>
       { children }
     </form>
   );
