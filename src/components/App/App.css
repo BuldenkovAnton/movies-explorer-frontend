@@ -1,4 +1,4 @@
-.page {
+.app {
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
   color: #fff;
@@ -14,43 +14,26 @@
   text-rendering: optimizeLegibility;
 }
 
-.page__header {
+.app__header {
   width: calc(100% - 2 * 70px);
   max-width: 1140px;
-  margin: 18px auto 0;
+  box-sizing: border-box;
+  margin: 0 auto;
 }
 
-.page__promo {
+.app__promo {
   width: calc(100% - 2 * 20px);
   max-width: 1200px;
   margin: 20px auto 0;
 }
 
-.page__about-project {
+.app__container {
   width: calc(100% - 2 * 70px);
   max-width: 1140px;
   margin: 0 auto;
 }
 
-.page__techs {
-  width: calc(100% - 2 * 70px);
-  max-width: 1140px;
-  margin: 0 auto;
-}
-
-.page__about-me {
-  width: calc(100% - 2 * 70px);
-  max-width: 1140px;
-  margin: 0 auto;
-}
-
-.page__footer {
-  width: calc(100% - 2 * 70px);
-  max-width: 1140px;
-  margin: 0 auto;
-}
-
-.page__auth {
+.app__auth {
   width: 100%;
   max-width: 396px;
   height: 100vh;
@@ -60,66 +43,34 @@
 }
 
 @media screen and (max-width: 1250px) {
-  .page__header {
+  .app__header {
     width: calc(100% - 2 * 30px);
   }
 
-  .page__about-project {
+  .app__container {
     width: calc(100% - 2 * 50px);
-    margin: 0 auto;
   }
 
-  .page__techs {
-    width: calc(100% - 2 * 50px);
-    margin: 0 auto;
-  }
-
-  .page__about-me {
-    width: calc(100% - 2 * 50px);
-    margin: 0 auto;
-  }
-
-  .page__footer {
-    width: calc(100% - 2 * 50px);
-    margin: 0 auto;
-  }
-
-  .page__auth {
+  .app__auth {
     padding: 232px 0;
   }
 }
 
 @media screen and (max-width: 750px) {
-  .page__header {
+  .app__header {
     width: calc(100% - 2 * 14px);
   }
 
-  .page__promo {
+  .app__container {
+    width: calc(100% - 2 * 14px);
+  }
+
+  .app__promo {
     width: calc(100% - 2 * 14px);
     margin: 14px 14px 0;
   }
 
-  .page__about-project {
-    width: calc(100% - 2 * 18px);
-    margin: 0 auto;
-  }
-
-  .page__techs {
-    width: calc(100% - 2 * 18px);
-    margin: 0 auto;
-  }
-
-  .page__about-me {
-    width: calc(100% - 2 * 14px);
-    margin: 0 auto;
-  }
-
-  .page__footer {
-    width: calc(100% - 2 * 14px);
-    margin: 0 auto;
-  }
-
-  .page__auth {
+  .app__auth {
     padding: 56px 30px 30px;
   }
 }

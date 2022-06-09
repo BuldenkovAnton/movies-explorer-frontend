@@ -6,7 +6,7 @@ import SectionTitle from "../SectionTitle/SectionTitle";
 
 function AboutMe() {
   return (
-    <section className="page__about-me about-me">
+    <section className="app__container about-me">
       <SectionTitle mixClass="about-me__title">
         Студент
       </SectionTitle>

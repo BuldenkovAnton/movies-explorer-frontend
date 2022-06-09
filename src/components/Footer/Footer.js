@@ -2,7 +2,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <header className="page__about-me footer">
+    <footer className="app__container footer">
       <p className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</p>
       <p className="footer__date">© 2022</p>
       <ul className="footer__menu">
@@ -16,7 +16,7 @@ function Footer() {
           <a href="#">Яндекс.Практикум</a>
         </li>
       </ul>
-    </header>
+    </footer>
   );
 }
 

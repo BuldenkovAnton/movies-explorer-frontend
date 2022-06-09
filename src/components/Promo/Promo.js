@@ -4,7 +4,7 @@ import Tab from "../Tab/Tab";
 
 function Promo() {
   return (
-    <section className="page__promo promo">
+    <section className="app__promo promo">
       <h1 className="promo__title">
         Учебный проект студента факультета Веб-разработки.
       </h1>

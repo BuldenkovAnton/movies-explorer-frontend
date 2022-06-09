@@ -11,7 +11,7 @@ import Techs from "../Techs/Techs";
 function Main(props) {
   return (
     <>
-      <Header mixClass="page__header">
+      <Header mixClass="app__header">
         <Menu mixClass="header__menu">
           <MenuItem
             link="/signup"

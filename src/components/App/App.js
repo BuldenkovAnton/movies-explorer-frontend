@@ -3,6 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 import { publicRoutes } from '../../router/index';
 import Login from "../Login/Login";
 import Main from "../Main/Main";
+import Movies from "../Movies/Movies";
+import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 
 import './App.css';
@@ -33,6 +35,14 @@ function App() {
 
        <Route path="/signup">
          <Register onSubmit={registerHandler} isLoading={isLoading}/>
+       </Route>
+
+       <Route path="/profile">
+         <Profile />
+       </Route>
+
+       <Route path="/movies">
+         <Movies />
        </Route>
 
        <Route path="/">

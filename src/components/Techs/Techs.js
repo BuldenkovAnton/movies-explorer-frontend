@@ -6,7 +6,7 @@ import Tab from "../Tab/Tab";
 function Techs() {
   return (
     <section className="techs">
-      <div className="techs__container page__techs">
+      <div className="app__container techs__container">
         <SectionTitle mixClass="techs__title">Технологии</SectionTitle>
 
         <h3 className="techs__tech-count">7 технологий</h3>

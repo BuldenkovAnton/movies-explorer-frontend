@@ -7,6 +7,7 @@ function Header({ mixClass = '', children }) {
   return (
     <header className={headerClass}>
       <Logo />
+
       { children }
     </header>
   );
