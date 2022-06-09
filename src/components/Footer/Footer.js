@@ -7,7 +7,7 @@ function Footer() {
         Учебный проект Яндекс.Практикум х BeatFilm.
       </p>
       <p className="footer__date">© 2022</p>
-      <ul className="footer__menu ">
+      <ul className="footer__menu">
         <li className="footer__menu-item">
           <a
             className="footer__menu-link"
