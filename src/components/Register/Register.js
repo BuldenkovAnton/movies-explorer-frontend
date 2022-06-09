@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Form from "../Form/Form";
 import Header from "../Header/Header";
@@ -8,17 +8,26 @@ function Register({ onSubmit, isLoading }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [nameDirty, setNameDirty] = React.useState(false);
-  const [emailDirty, setEmailDirty] = React.useState(false);
-  const [passwordDirty, setPasswordDirty] = React.useState(false);
+  const [nameDirty, setNameDirty] = useState(false);
+  const [emailDirty, setEmailDirty] = useState(false);
+  const [passwordDirty, setPasswordDirty] = useState(false);
 
-  const [nameError, setNameError] = React.useState("Имя не может быть пустым");
-  const [emailError, setEmailError] = React.useState(
+  const [nameError, setNameError] = useState("Имя не может быть пустым");
+  const [emailError, setEmailError] = useState(
     "Email не может быть пустым"
   );
-  const [passwordError, setPasswordError] = React.useState(
+  const [passwordError, setPasswordError] = useState(
     "Пароль не может быть пустым"
   );
+  const [formValid, setFormValid] = useState(false);
+
+  useEffect(() => {
+    if (nameError || emailError || passwordError) {
+      setFormValid(false);
+    } else {
+      setFormValid(true);
+    }
+  }, [nameError, emailError, passwordError]);
 
   const changeNameHandler = useCallback((e) => {
     const newName = e.target.value;
@@ -26,10 +35,8 @@ function Register({ onSubmit, isLoading }) {
 
     if (newName.length === 0) {
       setNameError("Имя не может быть пустым");
-    } else if (newName.length < 2) {
-      setNameError("Имя должно содержать 2 и более символов");
-    } else if (newName.length > 30) {
-      setNameError("Имя должно содержать 30 и меньше символов");
+    } else if (newName.length < 2 ||  newName.length > 30) {
+      setNameError("Имя должно содержать от 2 до 30 символов");
     } else {
       setNameError("");
     }
@@ -86,7 +93,7 @@ function Register({ onSubmit, isLoading }) {
   };
 
   return (
-    <main className="page page__auth register">
+    <main className="app__auth register">
       <Header />
       <h1 className="register__title">Добро пожаловать!</h1>
 
@@ -148,6 +155,7 @@ function Register({ onSubmit, isLoading }) {
           <button
             type="submit"
             className="form__button"
+            disabled={!formValid}
           >
             {isLoading ? "Регистрация..." : "Зарегистрироваться"}
           </button>
