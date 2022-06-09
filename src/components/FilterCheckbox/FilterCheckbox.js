@@ -1,15 +1,16 @@
 import React from "react";
 
-function FilterCheckbox({ isChecked }) {
+function FilterCheckbox({ title, onChange, isChecked = false }) {
   return (
     <label className="filter-checkbox">
       <input
         className="filter-checkbox__input"
         type="checkbox"
         checked={isChecked}
+        onChange={onChange}
       />
       <span className="filter-checkbox__switch"></span>
-      <span className="filter-checkbox__span">Короткометражки</span>
+      <span className="filter-checkbox__span">{title}</span>
     </label>
   );
 }
