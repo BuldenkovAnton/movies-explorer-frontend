@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Form from "../Form/Form";
 import Header from "../Header/Header";
@@ -6,6 +6,15 @@ import Header from "../Header/Header";
 function Login({ onSubmit }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [formValid, setFormValid] = useState(false);
+
+  useEffect(() => {
+    if (email && password) {
+      setFormValid(true);
+    } else {
+      setFormValid(false);
+    }
+  }, [email, password]);
 
   const changeEmailHandler = useCallback((e) => {
     setEmail(e.target.value);
@@ -22,7 +31,7 @@ function Login({ onSubmit }) {
   }
 
   return (
-    <div className="page page__auth login">
+    <div className="app__auth login">
         <Header />
         <h1 className="login__title">Рады видеть!</h1>
 
@@ -40,7 +49,7 @@ function Login({ onSubmit }) {
           </fieldset>
 
           <fieldset className="form__fieldset login__box-submit">
-            <button className="form__button">Войти</button>
+            <button className="form__button" disabled={!formValid}>Войти</button>
             <p className="login__signup-text">
               Ещё не зарегистрированы? <Link className="login__signup-link link" to="/signup">Регистрация</Link>
             </p>
