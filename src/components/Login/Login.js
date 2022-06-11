@@ -32,7 +32,7 @@ function Login({ onSubmit }) {
 
   return (
     <div className="app__auth login">
-        <Header />
+        <Header mixClass="header_auth"/>
         <h1 className="login__title">Рады видеть!</h1>
 
         <Form name="login" mixClass="login__form" onSubmit={submitHandler}>

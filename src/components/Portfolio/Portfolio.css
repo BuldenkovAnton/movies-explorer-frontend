@@ -1,24 +1,38 @@
 .portfolio {
-
+  padding: 100px 0 0;
 }
 
 .portfolio__title {
-
+  margin: 0 0 50px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  color: #8B8B8B;
 }
 
 .portfolio__list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-.portfolio__item {
-  position: relative;
-  box-sizing: border-box;
-  padding: 0 0 19px;
-  border: 1px solid #424242;
+
+@media screen and (max-width: 1250px) {
+  .portfolio {
+    padding: 90px 0 0;
+  }
 }
 
-.portfolio__link {
+@media screen and (max-width: 750px) {
+  .portfolio {
+    padding: 69px 0 0;
+  }
 
+  .portfolio__title {
+    margin: 0 0 40px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #A0A0A0;
+  }
 }

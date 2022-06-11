@@ -2,11 +2,19 @@
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
-  padding: 18px 0;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  align-items: center;
 }
 
 .header__menu {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+@media screen and (max-width: 520px) {
+  .header_auth {
+    justify-content: center;
+  }
 }

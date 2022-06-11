@@ -1,38 +1,38 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import AboutMe from "../AboutMe/AboutMe";
 import AboutProject from "../AboutProject/AboutProject";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
-import Menu from "../Menu/Menu";
-import MenuItem from "../MenuItem/MenuItem";
+import Navigation from "../Navigation/Navigation";
 import Promo from "../Promo/Promo";
 import Techs from "../Techs/Techs";
 
-function Main(props) {
+function Main() {
   return (
     <>
-      <Header mixClass="app__header">
-        <Menu mixClass="header__menu">
-          <MenuItem
-            link="/signup"
-            linkMixClass="menu__link"
-          >
-            Регистрация
-          </MenuItem>
-
-          <MenuItem
-            link="/signin"
-            linkMixClass="menu__link menu__link_type_button"
-          >
-            Войти
-          </MenuItem>
-        </Menu>
+      <Header mixClass="app__wrapper app__header">
+        <Navigation>
+          <li className="navigation__item">
+            <Link to="/signup" className="link navigation__link">
+              Регистрация
+            </Link>
+          </li>
+          <li className="navigation__item">
+            <Link
+              to="/signin"
+              className="link navigation__link navigation__link_type_button"
+            >
+              Войти
+            </Link>
+          </li>
+        </Navigation>
       </Header>
       <Promo />
       <AboutProject />
       <Techs />
       <AboutMe />
-      <Footer/>
+      <Footer />
     </>
   );
 }

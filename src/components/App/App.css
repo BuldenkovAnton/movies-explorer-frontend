@@ -14,20 +14,39 @@
   text-rendering: optimizeLegibility;
 }
 
-.app__header {
-  width: calc(100% - 2 * 70px);
-  max-width: 1140px;
-  box-sizing: border-box;
+.app__wrapper {
+  width: 100%;
   margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.app__header {
+  max-width: 1140px;
 }
 
 .app__promo {
   width: calc(100% - 2 * 20px);
   max-width: 1200px;
-  margin: 20px auto 0;
+  margin: 17px auto 0;
 }
 
-.app__container {
+.app__about-project {
+  max-width: 1140px;
+}
+
+.app__techs {
+  max-width: 1140px;
+}
+
+.app__about-me {
+  max-width: 1140px;
+}
+
+.app__footer {
+  max-width: 1140px;
+}
+
+.app__movie {
   width: calc(100% - 2 * 70px);
   max-width: 1140px;
   margin: 0 auto;
@@ -42,14 +61,51 @@
   box-sizing: border-box;
 }
 
+.link {
+  opacity: 1;
+  text-decoration: none;
+  transition: opacity .25s ease;
+}
+
+.link:hover {
+  opacity: .7;
+}
+
 @media screen and (max-width: 1250px) {
+  .app__wrapper {
+    max-width: 100%;
+  }
+
   .app__header {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .app__about-project {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+  .app__techs {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+  .app__about-me {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+  .app__footer {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .app__movie {
     width: calc(100% - 2 * 30px);
   }
 
-  .app__container {
-    width: calc(100% - 2 * 50px);
-  }
+
 
   .app__auth {
     padding: 232px 0;
@@ -58,16 +114,37 @@
 
 @media screen and (max-width: 750px) {
   .app__header {
-    width: calc(100% - 2 * 14px);
-  }
-
-  .app__container {
-    width: calc(100% - 2 * 14px);
+    padding-left: 14px;
+    padding-right: 14px;
   }
 
   .app__promo {
     width: calc(100% - 2 * 14px);
     margin: 14px 14px 0;
+  }
+
+  .app__about-project {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .app__techs {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .app__about-me {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .app__footer {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .app__movie {
+    width: calc(100% - 2 * 10px);
   }
 
   .app__auth {
@@ -76,11 +153,3 @@
 }
 
 
-.link {
-  opacity: 1;
-  transition: opacity .25s ease;
-}
-
-.link:hover {
-  opacity: .8;
-}

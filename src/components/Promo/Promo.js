@@ -1,31 +1,30 @@
 import React from "react";
-import NavTab from "../NavTab/NavTab";
-import Tab from "../Tab/Tab";
+import { Link } from "react-router-dom";
 
 function Promo() {
   return (
-    <section className="app__promo promo">
+    <section className="app__wrapper app__promo promo">
       <h1 className="promo__title">
         Учебный проект студента факультета Веб-разработки.
       </h1>
 
-      <NavTab modificatorClass="navtab_place_promo">
-        <Tab
-          modificatorClass="tab_place_promo"
-          title="О проекте"
-          href="#about-project"
-        />
-        <Tab
-          modificatorClass="tab_place_promo"
-          title="Технологии"
-          href="#techs"
-        />
-        <Tab
-          modificatorClass="tab_place_promo"
-          title="Студент"
-          href="#about-me"
-        />
-      </NavTab>
+      <ul className="promo__links">
+        <li className="promo__item">
+          <a className="link promo__link" href="/#about-project">
+            О проекте
+          </a>
+        </li>
+        <li className="promo__item">
+          <a className="link promo__link" href="/#techs">
+            Технологии
+          </a>
+        </li>
+        <li className="promo__item">
+          <a className="link promo__link" href="/#about-me">
+            Студент
+          </a>
+        </li>
+      </ul>
     </section>
   );
 }

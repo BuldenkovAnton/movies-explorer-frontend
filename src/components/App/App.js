@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Route, Switch } from 'react-router-dom';
-import { publicRoutes } from '../../router/index';
+
 import Login from "../Login/Login";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
 import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
+import SavedMovies from "../SavedMovies/SavedMovies";
 
 import './App.css';
 
@@ -30,11 +31,11 @@ function App() {
     <Switch>
 
        <Route path="/signin">
-         <Login onSubmit={loginHandler} isLoading={isLoading}/>
+         <Login onSubmit={loginHandler} isLoading={isLoading} />
        </Route>
 
        <Route path="/signup">
-         <Register onSubmit={registerHandler} isLoading={isLoading}/>
+         <Register onSubmit={registerHandler} isLoading={isLoading} />
        </Route>
 
        <Route path="/profile">
@@ -45,21 +46,13 @@ function App() {
          <Movies />
        </Route>
 
-       <Route path="/">
-         <Main/>
+       <Route path="/saved-movies">
+         <SavedMovies />
        </Route>
 
-     {/* {publicRoutes && publicRoutes.map(route =>
-          <Route
-              component={route.component}
-              props={route.props}
-              path={route.path}
-              exact={route.exact}
-              key={route.path}
-          />
-        )
-     } */}
-
+       <Route path="/">
+         <Main />
+       </Route>
     </Switch>
   );
 }

@@ -3,8 +3,8 @@ import SectionTitle from "../SectionTitle/SectionTitle";
 
 function Techs() {
   return (
-    <section className="techs">
-      <div className="app__container techs__container">
+    <section className="techs" id="techs">
+      <div className="app__wrapper app__techs">
         <SectionTitle mixClass="techs__title">Технологии</SectionTitle>
 
         <h3 className="techs__tech-count">7 технологий</h3>

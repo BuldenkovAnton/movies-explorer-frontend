@@ -1,19 +1,25 @@
 @import "./vendor/normalize.css";
 @import "./vendor/fonts.css";
+@import "./components/SectionTitle/SectionTitle.css";
 @import "./components/App/App.css";
 @import "./components/Header/Header.css";
 @import "./components/Logo/Logo.css";
-@import "./components/Menu/Menu.css";
-@import "./components/MenuItem/MenuItem.css";
+@import "./components/BurgerMenu/BurgerMenu.css";
+@import "./components/Navigation/Navigation.css";
 @import "./components/Promo/Promo.css";
-@import "./components/Tab/Tab.css";
-@import "./components/NavTab/NavTab.css";
-@import "./components/SectionTitle/SectionTitle.css";
 @import "./components/AboutProject/AboutProject.css";
 @import "./components/Techs/Techs.css";
 @import "./components/AboutMe/AboutMe.css";
+@import "./components/Portfolio/Portfolio.css";
+@import "./components/Footer/Footer.css";
 
 @import "./components/Page404/Page404.css";
 @import "./components/Form/Form.css";
 @import "./components/Login/Login.css";
 @import "./components/Register/Register.css";
+
+@import "./components/Movies/Movies.css";
+@import "./components/SearchForm/SearchForm.css";
+@import "./components/FilterCheckbox/FilterCheckbox.css";
+@import "./components/MoviesCardList/MoviesCardList.css";
+@import "./components/MoviesCard/MoviesCard.css";

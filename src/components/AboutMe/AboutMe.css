@@ -1,6 +1,7 @@
 .about-me {
   box-sizing: border-box;
-  padding: 110px 0 100px;
+  padding-top: 110px;
+  padding-bottom: 105px;
 }
 
 .about-me__title {
@@ -22,6 +23,7 @@
 }
 
 .about-me__name {
+  font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
   font-size: 50px;
@@ -32,6 +34,8 @@
 }
 
 .about-me__job {
+  font-family: 'Inter';
+  font-style: normal;
   font-weight: 500;
   font-size: 18px;
   line-height: 20px;
@@ -41,6 +45,8 @@
 }
 
 .about-me__life {
+  font-family: 'Inter';
+  font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 22px;
@@ -57,33 +63,18 @@
   align-self: flex-end;
 }
 
-.about-me__link-item {
-  margin: 0 20px 0 0;
-}
-
-.about-me__link-item:last-child {
-  margin: 0;
-}
-
-.about-me__link {
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
-  color: #FFFFFF;
-  text-decoration: none;
-}
-
 .about-me__foto {
   grid-area: me-foto;
   width: 270px;
   height: 327px;
+  border-radius: 10px;
   object-position: center;
 }
 
 @media screen and (max-width: 1250px) {
   .about-me {
-    padding: 90px 0;
+    padding-top: 90px;
+    padding-bottom: 70px;
   }
 
   .about-me__card {
@@ -114,6 +105,15 @@
 }
 
 @media screen and (max-width: 600px) {
+  .about-me {
+    padding-top: 70px;
+    padding-bottom: 52px;
+  }
+
+  .about-me__title {
+    margin: 0 0 60px 0;
+  }
+
   .about-me__card {
     display: grid;
     grid-template-columns: 1fr;
@@ -140,10 +140,6 @@
   .about-me__life {
     font-size: 11px;
     line-height: 16px;
-  }
-
-  .about-me__link-item {
-    margin: 0 26px 0 0;
   }
 
   .about-me__foto {

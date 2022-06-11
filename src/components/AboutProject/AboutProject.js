@@ -3,7 +3,7 @@ import SectionTitle from "../SectionTitle/SectionTitle";
 
 function AboutProject() {
   return (
-    <section className="app__container about-project">
+    <section className="app__wrapper app__about-project about-project" id="about-project">
       <SectionTitle mixClass="about-project__title">
         О проекте
       </SectionTitle>
