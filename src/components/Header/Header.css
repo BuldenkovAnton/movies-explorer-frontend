@@ -7,6 +7,10 @@
   align-items: center;
 }
 
+.header_auth {
+  padding: 0;
+}
+
 .header__menu {
   margin: 0;
   padding: 0;

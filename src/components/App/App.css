@@ -53,11 +53,9 @@
 }
 
 .app__auth {
-  width: 100%;
   max-width: 396px;
   height: 100vh;
-  margin: 0 auto;
-  padding: 70px 0;
+  padding: 70px 0 71px;
   box-sizing: border-box;
 }
 
@@ -101,18 +99,21 @@
     padding-right: 30px;
   }
 
+  .app__auth {
+    max-width: 396px;
+    padding: 232px 0;
+  }
+
   .app__movie {
     width: calc(100% - 2 * 30px);
   }
-
-
-
-  .app__auth {
-    padding: 232px 0;
-  }
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 1100px) {
+
+}
+
+@media screen and (max-width: 760px) {
   .app__header {
     padding-left: 14px;
     padding-right: 14px;

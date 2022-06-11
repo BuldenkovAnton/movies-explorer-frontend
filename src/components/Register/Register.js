@@ -93,8 +93,8 @@ function Register({ onSubmit, isLoading }) {
   };
 
   return (
-    <main className="app__auth register">
-      <Header />
+    <main className="app__wrapper app__auth register">
+      <Header mixClass="header_auth" />
       <h1 className="register__title">Добро пожаловать!</h1>
 
       <Form mixClass="register__form" name="register" onSubmit={submitHandler}>

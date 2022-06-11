@@ -31,7 +31,7 @@ function Login({ onSubmit }) {
   }
 
   return (
-    <div className="app__auth login">
+    <div className="app__wrapper app__auth login">
         <Header mixClass="header_auth"/>
         <h1 className="login__title">Рады видеть!</h1>
 

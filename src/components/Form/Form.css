@@ -6,17 +6,22 @@
 }
 
 .form__label {
+  font-family: 'Inter';
+  font-style: normal;
+  position: relative;
   display: block;
   width: 100%;
   margin: 0 0 24px;
   font-weight: 400;
   font-size: 10px;
-  line-height: 12px;
+  line-height: 16px;
   color: #8B8B8B;
 }
 
 .form__input {
   width: 100%;
+  font-family: 'Inter';
+  font-style: normal;
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
@@ -32,6 +37,7 @@
 }
 
 .form__input-error {
+  position: absolute;
   margin: 6px 0 0;
   display: block;
   color: #EE3465;
