@@ -25,22 +25,24 @@ function AboutMe() {
 
         <Navigation navClass="about-me__links">
           <li className="navigation__item navigation__item_place_about-me">
-            <Link
+            <a
+              rel="noreferrer"
               className="link navigation__link navigation__link_place_about-me"
-              to="https://buldenkov.ru"
+              href="https://buldenkov.ru"
               target="_blank"
             >
               Buldenkov.ru
-            </Link>
+            </a>
           </li>
           <li className="navigation__item navigation__item_place_about-me">
-            <Link
+            <a
+              rel="noreferrer"
               className="link navigation__link navigation__link_place_about-me"
-              to="https://github.com/BuldenkovAnton"
+              href="https://github.com/BuldenkovAnton"
               target="_blank"
             >
               Github
-            </Link>
+            </a>
           </li>
         </Navigation>
         <img className="about-me__foto" src={Image} alt="Антон" />
