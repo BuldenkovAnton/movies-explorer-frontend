@@ -120,6 +120,10 @@
     line-height: 16px;
   }
 
+  .navigation__link_active {
+    font-weight: 500;
+  }
+
   .navigation__item_place_portfolio {
     border-bottom: 1px solid #E6E6E6;
   }

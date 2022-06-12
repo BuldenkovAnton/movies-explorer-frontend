@@ -1,0 +1,16 @@
+.movies__button-load {
+  display: block;
+  width: 320px;
+  margin: 50px auto 80px;
+  box-sizing: border-box;
+  padding: 11px 60px 9px;
+  background: #2F2F2F;
+  border: 0;
+  border-radius: 6px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  color: #FFFFFF;
+}

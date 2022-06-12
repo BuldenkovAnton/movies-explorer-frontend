@@ -11,7 +11,6 @@ function SearchForm({ onSubmit }) {
   };
 
   const changeSearchIsMiniMovieHandler = (e) => {
-    console.log(e.target.checked);
     setSearchIsMiniMovie(e.target.checked);
   };
 
@@ -28,25 +27,34 @@ function SearchForm({ onSubmit }) {
         name="search"
         onSubmit={submitHandler}
       >
-        <fieldset className="search-form__fieldset search-form__fieldset_input">
-          <img className="search-form__icon" src={searchIcon} alt="Поиск" />
-          <input
-            className="search-form__input"
-            type="text"
-            placeholder="Фильм"
-            value={searchQuery}
-            onChange={changeSearchQueryHandler}
-          />
-          <button className="search-form__submit">Найти</button>
-        </fieldset>
-        <span className="search-form__seperate"></span>
-        <fieldset className="search-form__fieldset search-form__fieldset_switch">
-          <FilterCheckbox
-            title="Короткометражки"
-            isChecked={searchIsMiniMovie}
-            onChange={changeSearchIsMiniMovieHandler}
-          />
-        </fieldset>
+        <div className="search-form__container">
+          <fieldset className="search-form__fieldset search-form__fieldset_input">
+            <img className="search-form__icon" src={searchIcon} alt="Поиск" />
+            <input
+              className="search-form__input"
+              type="text"
+              placeholder="Фильм"
+              value={searchQuery}
+              onChange={changeSearchQueryHandler}
+            />
+            <button className="search-form__submit">Найти</button>
+          </fieldset>
+          <span className="search-form__seperate"></span>
+          <fieldset className="search-form__fieldset search-form__fieldset_switch">
+            <FilterCheckbox
+              title="Короткометражки"
+              isChecked={searchIsMiniMovie}
+              onChange={changeSearchIsMiniMovieHandler}
+            />
+          </fieldset>
+        </div>
+
+        <FilterCheckbox
+          mixClass="filter-checkbox_show_tablet"
+          title="Короткометражки"
+          isChecked={searchIsMiniMovie}
+          onChange={changeSearchIsMiniMovieHandler}
+        />
       </form>
 
       <hr className="search-form__hr" />

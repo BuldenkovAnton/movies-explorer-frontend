@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useMemo } from "react";
 
-function FilterCheckbox({ title, onChange, isChecked = false }) {
+function FilterCheckbox({ mixClass, title, onChange, isChecked = false }) {
+  const labelClass = useMemo(() => {
+    return ['filter-checkbox', mixClass].join(' ');
+  }, [mixClass]);
+
   return (
-    <label className="filter-checkbox">
+    <label className={labelClass}>
       <input
         className="filter-checkbox__input"
         type="checkbox"
