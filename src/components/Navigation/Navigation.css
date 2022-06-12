@@ -49,6 +49,10 @@
   display: block;
 }
 
+.navigation__link_active {
+  font-weight: 500;
+}
+
 .navigation__link_page_home {
   font-weight: 500;
   font-size: 12px;
@@ -118,10 +122,6 @@
   .navigation__link {
     font-size: 10px;
     line-height: 16px;
-  }
-
-  .navigation__link_active {
-    font-weight: 500;
   }
 
   .navigation__item_place_portfolio {
