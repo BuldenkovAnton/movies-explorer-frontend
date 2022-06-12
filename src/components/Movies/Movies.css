@@ -14,3 +14,10 @@
   text-align: center;
   color: #FFFFFF;
 }
+
+@media screen and (max-width: 520px) {
+  .movies__button-load {
+    width: 240px;
+    padding: 11px 20px 9px;
+  }
+}

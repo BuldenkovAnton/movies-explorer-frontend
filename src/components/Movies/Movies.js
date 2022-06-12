@@ -637,23 +637,23 @@ function Movies() {
   return (
     <>
       <Header mixClass="app__wrapper app__header">
-        <BurgerMenu>
+      <BurgerMenu>
           <Navigation mixClass="navigation_burger">
-            <li className="navigation__item navigation__item_hide_notebook">
-              <Link to="/" className="navigation__link">
+            <li className="navigation__item navigation__item_place_burger  navigation__item_hide_notebook">
+              <Link to="/" className="navigation__link navigation__link_place_burger">
                 Главная
               </Link>
             </li>
-            <li className="navigation__item">
-              <Link
-                to="/movies"
-                className="navigation__link navigation__link_active"
-              >
+            <li className="navigation__item navigation__item_place_burger">
+              <Link to="/movies" className="navigation__link navigation__link_place_burger navigation__link_active">
                 Фильмы
               </Link>
             </li>
-            <li className="navigation__item">
-              <Link to="/saved-movies" className="navigation__link">
+            <li className="navigation__item navigation__item_place_burger">
+              <Link
+                to="/saved-movies"
+                className="navigation__link navigation__link_place_burger"
+              >
                 Сохранённые фильмы
               </Link>
             </li>
