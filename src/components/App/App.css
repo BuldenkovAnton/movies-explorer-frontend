@@ -48,7 +48,7 @@
 
 .app__profile {
   max-width: 410px;
-  height: calc(100vh - 77px);
+  height: calc(100vh - 75px);
   margin: 0 auto;
 }
 
