@@ -1,6 +1,8 @@
 # Проект Movies explorer
 Данный проект позволяет найти фильм по ключевым словам и сохранить его в избранное для авторизованного пользователя. 
 
+[diplom.buldenkov.nomoredomains.xyz](http://diplom.buldenkov.nomoredomains.xyz/)
+IP: 51.250.98.222
 
 **Технологии**
 
