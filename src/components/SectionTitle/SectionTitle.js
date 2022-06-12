@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 function SectionTitle({ children, mixClass = '' }) {
-  const styleClass = ['section-title', mixClass].join(' ');
+  const styleClass = useMemo(() => {
+    return ['section-title', mixClass].join(' ');
+  }, [mixClass]);
 
   return (
     <h2 className={styleClass}>

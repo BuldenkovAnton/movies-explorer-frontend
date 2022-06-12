@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Image from "../../images/foto.jpg";
 import Navigation from "../Navigation/Navigation";
 import Portfolio from "../Portfolio/Portfolio";

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import Alert from "../Alert/Alert";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
@@ -632,25 +632,13 @@ function Movies({ alertError, alertClose, onSearch, onSaveMovie }) {
     },
   ]);
 
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchIsMiniMovie, setSearchIsMiniMovie] = useState(true);
+  const onSearchHandler = useCallback(({ query, isMini}) => {
+    onSearch({query, isMini});
+  }, [onSearch]);
 
-  const onSearchHandler = () => {
-    onSearch({searchQuery, searchIsMiniMovie});
-  };
-
-  const onSaveMovieHandler = (movie) => {
+  const onSaveMovieHandler = useCallback((movie) => {
     onSaveMovie(movie);
-  };
-
-  const onChangeSearchQuery = (value) => {
-      setSearchQuery(value);
-  };
-
-  const onChangeSearchIsMiniMovie = (value) => {
-    setSearchIsMiniMovie(value);
-};
-
+  }, [onSaveMovie]);
 
   return (
     <>
@@ -688,10 +676,6 @@ function Movies({ alertError, alertClose, onSearch, onSaveMovie }) {
       <main className="app__movie movies" aria-label="Фильмы">
         <SearchForm
           onSubmit={onSearchHandler}
-          searchQuery={searchQuery}
-          searchIsMiniMovie={searchIsMiniMovie}
-          onChangeSearchQuery={onChangeSearchQuery}
-          onChangeSearchIsMiniMovie={onChangeSearchIsMiniMovie}
         />
         <Preloader />
         <MoviesCardList

@@ -1,22 +1,24 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import searchIcon from "../../images/search-icon.svg";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-function SearchForm({ searchQuery, searchIsMiniMovie, onChangeSearchQuery, onChangeSearchIsMiniMovie, onSubmit }) {
+function SearchForm({ onSubmit }) {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchIsMiniMovie, setSearchIsMiniMovie] = useState(true);
 
-  const onChangeSearchQueryHandler = (e) => {
-    onChangeSearchQuery(e.target.value);
-  };
+  const onChangeSearchQueryHandler = useCallback((e) => {
+    setSearchQuery(e.target.value);
+  }, []);
 
-  const onChangeSearchIsMiniMovieHandler = (e) => {
-    onChangeSearchIsMiniMovie(e.target.checked);
-  };
+  const onChangeSearchIsMiniMovieHandler = useCallback((e) => {
+    setSearchIsMiniMovie(e.target.checked);
+  }, []);
 
-  const submitHandler = (e) => {
+  const submitHandler = useCallback((e) => {
     e.preventDefault();
 
-    onSubmit();
-  };
+    onSubmit({query: searchQuery, isMini: searchIsMiniMovie});
+  }, [onSubmit, searchQuery, searchIsMiniMovie]);
 
   return (
     <section className="search-form" aria-label="Поиск фильмов">

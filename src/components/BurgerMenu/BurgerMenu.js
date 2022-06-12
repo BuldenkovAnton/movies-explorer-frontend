@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import burgerMenuImage from "../../images/burger.svg";
 import closeMenuImage from "../../images/menu_close.svg";
@@ -7,17 +7,18 @@ import accauntImage from "../../images/account.svg";
 function BurgerMenu({ children }) {
   const [isNavigationShow, setIsNavigationShow] = useState(false);
 
-  const navigationPanelClass = `burger-menu__panel ${
-    isNavigationShow && "burger-menu__panel_show"
-  }`;
+  const navigationPanelClass = useMemo(() => {
+    return `burger-menu__panel ${
+      isNavigationShow && "burger-menu__panel_show"}`
+  }, [isNavigationShow]);
 
-  const openMenuHandler = (e) => {
+  const openMenuHandler = useCallback((e) => {
     setIsNavigationShow(true);
-  };
+  }, []);
 
-  const closewMenuHandler = (e) => {
+  const closewMenuHandler = useCallback((e) => {
     setIsNavigationShow(false);
-  };
+  }, []);
 
   return (
     <>

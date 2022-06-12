@@ -25,11 +25,11 @@ function Login({ alertError, alertClose, onSubmit }) {
     setPassword(e.target.value);
   }, []);
 
-  const submitHandler = (e) => {
+  const submitHandler = useCallback((e) => {
     e.preventDefault();
 
     onSubmit({ email, password });
-  };
+  }, [onSubmit, email, password]);
 
   return (
     <>

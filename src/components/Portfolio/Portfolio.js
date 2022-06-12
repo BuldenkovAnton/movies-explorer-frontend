@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import portfolioArrow from "../../images/portfolio_arrow.svg";
 import Navigation from "../Navigation/Navigation";
 

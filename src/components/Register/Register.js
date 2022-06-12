@@ -71,7 +71,7 @@ function Register({ alertError, alertClose, onSubmit, isLoading }) {
     }
   }, []);
 
-  function blurHandler(e) {
+  const blurHandler = useCallback((e) => {
     switch (e.target.name) {
       case "name":
         setNameDirty(true);
@@ -83,13 +83,13 @@ function Register({ alertError, alertClose, onSubmit, isLoading }) {
         setPasswordDirty(true);
         break;
     }
-  }
+  }, []);
 
-  const submitHandler = (e) => {
+  const submitHandler = useCallback((e) => {
     e.preventDefault();
 
     onSubmit({ name, email, password });
-  };
+  }, [onSubmit, name, email, password]);
 
   return (
     <>

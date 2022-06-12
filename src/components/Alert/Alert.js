@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useCallback } from "react";
 import closeImage from "../../images/menu_close.svg";
 
 function Alert({ text, onClose }) {
-  const closeHandler = (e) => {
+  const closeHandler = useCallback((e) => {
     e.preventDefault();
 
     onClose();
-  };
+  }, [onClose]);
 
   return (
     <>

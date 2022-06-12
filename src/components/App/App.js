@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 
 import Page404 from "../Page404/Page404";
@@ -15,43 +15,43 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [alertError, setAlerError] = useState("");
 
-  function loginHandler({ email, password }) {
+  const loginHandler = useCallback( ({ email, password }) => {
     setIsLoading(true);
     console.log("Авторизация");
 
     setIsLoading(false);
-  }
+  }, []);
 
-  function registerHandler({ name, email, password }) {
+  const registerHandler = useCallback(({ name, email, password }) => {
     setIsLoading(true);
     console.log("Регистрация");
 
     setIsLoading(false);
-  }
+  }, []);
 
-  const signOutHandler = () => {
+  const signOutHandler = useCallback(() => {
     console.log("выход");
-  };
+  }, []);
 
-  const submitHandler = ({ name, email }) => {
+  const submitHandler = useCallback(({ name, email }) => {
     console.log("сохранение", name, email);
-  };
+  }, []);
 
-  const alertCloseHandler = () => {
+  const alertCloseHandler =useCallback(() => {
     setAlerError("");
-  };
+  }, []);
 
-  const searchHandler = ({ searchQuery, searchIsMiniMovie }) => {
-    console.log("поиск по базе фильмов", searchQuery, searchIsMiniMovie);
-  };
+  const searchHandler = useCallback(({query, isMini}) => {
+    console.log("поиск по базе фильмов", query, isMini);
+  }, []);
 
-  const saveMovieHandler = (movie) => {
+  const saveMovieHandler = useCallback((movie) => {
     console.log("сохранить фильм", movie);
-  };
+  }, []);
 
-  const deleteMovieHandler = (movieId) => {
+  const deleteMovieHandler = useCallback((movieId) => {
     console.log("удалить фильм", movieId);
-  };
+  }, []);
 
   return (
     <Switch>

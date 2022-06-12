@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Alert from "../Alert/Alert";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
@@ -21,30 +21,30 @@ function Profile({ alertError, alertClose, signOut, onSubmit }) {
     }
   }, [name, email]);
 
-  const isEditHandler = (e) => {
+  const isEditHandler = useCallback((e) => {
     setIsEdit(true);
-  };
+  }, []);
 
-  const changeNameHandler = (e) => {
+  const changeNameHandler = useCallback((e) => {
     setName(e.target.value);
-  };
+  }, []);
 
-  const changeEmailHandler = (e) => {
+  const changeEmailHandler = useCallback((e) => {
     setEmail(e.target.value);
-  };
+  }, []);
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = useCallback((e) => {
     e.preventDefault();
 
     onSubmit({name, email});
     setIsEdit(false);
-  }
+  }, [onSubmit, name, email]);
 
-  const onSignOutHandler = (e) => {
+  const onSignOutHandler = useCallback((e) => {
     e.preventDefault();
 
     signOut();
-  }
+  }, [signOut]);
 
   return (
     <>

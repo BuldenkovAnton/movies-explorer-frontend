@@ -4,7 +4,6 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 function MoviesCardList({
   movies,
   nameKey,
-  isSaved = false,
   onSaveMovie = null,
   onDeleteMovie = null,
 }) {

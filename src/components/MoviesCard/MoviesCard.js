@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import iconMovieNotSaved from "../../images/movie_not_save.svg";
 import iconMovieSaved from "../../images/movie_save.svg";
 import iconMovieSavedDelete from "../../images/movie_delete.svg";
@@ -10,16 +10,16 @@ function MoviesCard({
   onSaveMovie = null,
   onDeleteMovie = null,
 }) {
-  const saveHelper = (e) => {
+  const saveHelper = useCallback((e) => {
     e.preventDefault();
     onSaveMovie(movie);
-  };
+  }, [onSaveMovie, movie]);
 
-  const deleteHelper = (e) => {
+  const deleteHelper = useCallback((e) => {
     e.preventDefault();
 
     onDeleteMovie(movie._id);
-  };
+  }, [onDeleteMovie, movie]);
 
   return (
     <article className="movie-card">
