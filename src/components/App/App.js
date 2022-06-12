@@ -13,6 +13,7 @@ import "./App.css";
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
+  const [alertError, setAlerError] = useState("");
 
   function loginHandler({ email, password }) {
     setIsLoading(true);
@@ -28,6 +29,30 @@ function App() {
     setIsLoading(false);
   }
 
+  const signOutHandler = () => {
+    console.log("выход");
+  };
+
+  const submitHandler = ({ name, email }) => {
+    console.log("сохранение", name, email);
+  };
+
+  const alertCloseHandler = () => {
+    setAlerError("");
+  };
+
+  const searchHandler = ({ searchQuery, searchIsMiniMovie }) => {
+    console.log("поиск по базе фильмов", searchQuery, searchIsMiniMovie);
+  };
+
+  const saveMovieHandler = (movie) => {
+    console.log("сохранить фильм", movie);
+  };
+
+  const deleteMovieHandler = (movieId) => {
+    console.log("удалить фильм", movieId);
+  };
+
   return (
     <Switch>
       <Route path="/" exact>
@@ -35,23 +60,48 @@ function App() {
       </Route>
 
       <Route path="/signin">
-        <Login onSubmit={loginHandler} isLoading={isLoading} />
+        <Login
+          alertError={alertError}
+          alertClose={alertCloseHandler}
+          onSubmit={loginHandler}
+          isLoading={isLoading}
+        />
       </Route>
 
       <Route path="/signup">
-        <Register onSubmit={registerHandler} isLoading={isLoading} />
+        <Register
+          alertError={alertError}
+          alertClose={alertCloseHandler}
+          onSubmit={registerHandler}
+          isLoading={isLoading}
+        />
       </Route>
 
       <Route path="/profile">
-        <Profile />
+        <Profile
+          alertError={alertError}
+          alertClose={alertCloseHandler}
+          signOut={signOutHandler}
+          onSubmit={submitHandler}
+        />
       </Route>
 
       <Route path="/movies">
-        <Movies />
+        <Movies
+          alertError={alertError}
+          alertClose={alertCloseHandler}
+          onSearch={searchHandler}
+          onSaveMovie={saveMovieHandler}
+        />
       </Route>
 
       <Route path="/saved-movies">
-        <SavedMovies />
+        <SavedMovies
+          alertError={alertError}
+          alertClose={alertCloseHandler}
+          onSearch={searchHandler}
+          onDeleteMovie={deleteMovieHandler}
+        />
       </Route>
 
       <Route>

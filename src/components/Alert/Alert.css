@@ -1,0 +1,30 @@
+.alert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: red;
+  color: #fff;
+}
+
+.alert__container {
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 10px 10px;
+}
+
+.alert__text {
+  margin: 0;
+}
+
+.alert__button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.alert__icon {
+  width: 16px;
+}

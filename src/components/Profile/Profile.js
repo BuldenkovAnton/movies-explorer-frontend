@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Alert from "../Alert/Alert";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import Form from "../Form/Form";
 import Header from "../Header/Header";
 import Navigation from "../Navigation/Navigation";
 
-function Profile() {
+function Profile({ alertError, alertClose, signOut, onSubmit }) {
   const [name, setName] = useState("Антон");
   const [email, setEmail] = useState("pochata@yandex.ru");
   const [isEdit, setIsEdit] = useState(false);
@@ -32,20 +33,22 @@ function Profile() {
     setEmail(e.target.value);
   };
 
-  const signOutHandler = (e) => {
+  const onSubmitHandler = (e) => {
     e.preventDefault();
 
-    console.log("выход");
-  };
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-
+    onSubmit({name, email});
     setIsEdit(false);
-    console.log("сохранение");
-  };
+  }
+
+  const onSignOutHandler = (e) => {
+    e.preventDefault();
+
+    signOut();
+  }
+
   return (
     <>
+      <Alert text={alertError} onClose={alertClose} />
       <Header mixClass="app__wrapper app__header">
         <BurgerMenu>
           <Navigation mixClass="navigation_burger">
@@ -78,7 +81,7 @@ function Profile() {
       </Header>
       <section className="app__wrapper app__profile profile">
         <h1 className="profile__title">Привет, Антон!</h1>
-        <Form mixClass="profile__form" onSubmit={submitHandler}>
+        <Form mixClass="profile__form" onSubmit={onSubmitHandler}>
           <fieldset className="form__fieldset form__fieldset_place_profile">
             <label className="form__label form__label_place_profile">Имя</label>
             <input
@@ -119,7 +122,7 @@ function Profile() {
 
                 <button
                   className="link form__button-link form__button_place_profile"
-                  onClick={signOutHandler}
+                  onClick={onSignOutHandler}
                 >
                   Выйти из аккаунта
                 </button>

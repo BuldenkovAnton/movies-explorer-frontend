@@ -1,23 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import searchIcon from "../../images/search-icon.svg";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-function SearchForm({ onSubmit }) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchIsMiniMovie, setSearchIsMiniMovie] = useState(true);
+function SearchForm({ searchQuery, searchIsMiniMovie, onChangeSearchQuery, onChangeSearchIsMiniMovie, onSubmit }) {
 
-  const changeSearchQueryHandler = (e) => {
-    setSearchQuery(e.target.value);
+  const onChangeSearchQueryHandler = (e) => {
+    onChangeSearchQuery(e.target.value);
   };
 
-  const changeSearchIsMiniMovieHandler = (e) => {
-    setSearchIsMiniMovie(e.target.checked);
+  const onChangeSearchIsMiniMovieHandler = (e) => {
+    onChangeSearchIsMiniMovie(e.target.checked);
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
 
-    onSubmit({ query: searchQuery, check: searchIsMiniMovie });
+    onSubmit();
   };
 
   return (
@@ -31,11 +29,12 @@ function SearchForm({ onSubmit }) {
           <fieldset className="search-form__fieldset search-form__fieldset_input">
             <img className="search-form__icon" src={searchIcon} alt="Поиск" />
             <input
+              name="name"
               className="search-form__input"
               type="text"
               placeholder="Фильм"
               value={searchQuery}
-              onChange={changeSearchQueryHandler}
+              onChange={onChangeSearchQueryHandler}
             />
             <button className="search-form__submit">Найти</button>
           </fieldset>
@@ -44,7 +43,7 @@ function SearchForm({ onSubmit }) {
             <FilterCheckbox
               title="Короткометражки"
               isChecked={searchIsMiniMovie}
-              onChange={changeSearchIsMiniMovieHandler}
+              onChange={onChangeSearchIsMiniMovieHandler}
             />
           </fieldset>
         </div>
@@ -53,7 +52,7 @@ function SearchForm({ onSubmit }) {
           mixClass="filter-checkbox_show_tablet"
           title="Короткометражки"
           isChecked={searchIsMiniMovie}
-          onChange={changeSearchIsMiniMovieHandler}
+          onChange={onChangeSearchIsMiniMovieHandler}
         />
       </form>
 

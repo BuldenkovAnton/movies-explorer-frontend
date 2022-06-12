@@ -20,6 +20,10 @@
   box-sizing: border-box;
 }
 
+.app__alert {
+  max-width: 1140px;
+}
+
 .app__header {
   max-width: 1140px;
 }
@@ -79,6 +83,11 @@
     max-width: 100%;
   }
 
+  .app__alert {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
   .app__header {
     padding-left: 30px;
     padding-right: 30px;
@@ -120,6 +129,11 @@
 
 @media screen and (max-width: 760px) {
   .app__header {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .app__alert {
     padding-left: 14px;
     padding-right: 14px;
   }

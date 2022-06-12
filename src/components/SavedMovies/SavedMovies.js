@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Alert from "../Alert/Alert";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Navigation from "../Navigation/Navigation";
+import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 
-function SavedMovies() {
+function SavedMovies({ alertError, alertClose, onSearch, onDeleteMovie }) {
   const [savedMovies, setSavedMovies] = useState([
     {
       _id: 1,
@@ -21,8 +23,10 @@ function SavedMovies() {
       description:
         "В конце 1960-х группа «Роллинг Стоунз», несмотря на все свои мегахиты и сверхуспешные концертные туры, была разорена. Виной всему — бездарный менеджмент и драконовское налогообложение в Британии. Тогда музыканты приняли не самое простое для себя решение: летом 1971 года после выхода альбома «Stiсky Fingers» они отправились на юг Франции записывать новую пластинку. Именно там, на Лазурном Берегу, в арендованном Китом Ричардсом подвале виллы Неллькот родился сборник «Exile on Main St.», который стал лучшим альбомом легендарной группы.",
       trailerLink: "https://www.youtube.com/watch?v=UXcqcdYABFw",
-      image: "https://api.nomoreparties.co/uploads/stones_in_exile_b2f1b8f4b7.jpeg",
-      thumbnail: "https://api.nomoreparties.co/uploads/thumbnail_stones_in_exile_b2f1b8f4b7.jpeg",
+      image:
+        "https://api.nomoreparties.co/uploads/stones_in_exile_b2f1b8f4b7.jpeg",
+      thumbnail:
+        "https://api.nomoreparties.co/uploads/thumbnail_stones_in_exile_b2f1b8f4b7.jpeg",
       owner: 1,
     },
     {
@@ -37,8 +41,10 @@ function SavedMovies() {
       description:
         "Хроники британского фестиваля, который первым нарушил монополию «Гластонбери», «Ридинга» и прочих пивных сборищ в чистом поле — и с тех пор прослыл одним из самых независимых и принципиальных. ATP из года в год проходит на базе отдыха в английской глуши, где артисты и их поклонники живут в одинаковых номерах, не бывает коммерческих спонсоров, программу составляют приглашенные кураторы (в разное время ими были Ник Кейв, Belle & Sebastian, Sonic Youth и даже Мэтт Грейнинг). И, главное, где не любят вздорных людей — основатель фестиваля Барри Хоган однажды сказал, что никогда больше не станет иметь дело с группой Killing Joke, «потому что они му...аки». Эта демократичность сказалась и на фильме: часть съемок сделана адептами фестиваля на мобильный телефон.",
       trailerLink: "https://www.youtube.com/watch?v=D5fBhbEJxEU",
-      image: "https://api.nomoreparties.co/uploads/all_tommoros_parties_33a125248d.jpeg",
-      thumbnail: "https://api.nomoreparties.co/uploads/thumbnail_all_tommoros_parties_33a125248d.jpeg",
+      image:
+        "https://api.nomoreparties.co/uploads/all_tommoros_parties_33a125248d.jpeg",
+      thumbnail:
+        "https://api.nomoreparties.co/uploads/thumbnail_all_tommoros_parties_33a125248d.jpeg",
       owner: 1,
     },
     {
@@ -53,22 +59,35 @@ function SavedMovies() {
       description:
         "Затеянный по такому подозрительному поводу, как реюнион Blur в 2009-м году фильм начисто лишен присущего моменту пафоса и выхолощенности речей. Вернее, что-то похожее неизбежно возникает, когда ты видишь, как забитый до отказа Гайд-парк как в последний раз ревет «Song 2», но это лишь буквальное свидетельство того, что Blur — великая группа. К счастью, помимо прямых и косвенных свидетельств этого, в «No Distance Left to Run» хватает острых углов, неловких моментов и всего того сора, из которого рождаются по-настоящему отличные группы: помимо важных, но общеизвестных моментов (вроде соперничества с Oasis за первенство в том же бритпопе) визуализируются и те, что всегда оставались за кадром: наркотическая зависимость, неутихающие костры амбиций, ревность, обиды, слава — и все это блестяще снято на фоне истории того, что вообще происходило в Британии времен Блэра.",
       trailerLink: "https://www.youtube.com/watch?v=6iYxdghpJZY",
-      image:  "https://api.nomoreparties.co/uploads/blur_a43fcf463d.jpeg",
-      thumbnail: "https://api.nomoreparties.co/uploads/thumbnail_blur_a43fcf463d.jpeg",
+      image: "https://api.nomoreparties.co/uploads/blur_a43fcf463d.jpeg",
+      thumbnail:
+        "https://api.nomoreparties.co/uploads/thumbnail_blur_a43fcf463d.jpeg",
       owner: 1,
     },
   ]);
 
-  const searchHandler = ({ query, check }) => {
-    console.log("поиск по базе фильмов");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchIsMiniMovie, setSearchIsMiniMovie] = useState(true);
+
+  const onSearchHandler = () => {
+    onSearch({ searchQuery, searchIsMiniMovie });
   };
 
-  const deleteMovieHandler = (movieId) => {
-    console.log('удалить фильм', movieId);
-  }
+  const onChangeSearchQuery = (value) => {
+    setSearchQuery(value);
+  };
+
+  const onChangeSearchIsMiniMovie = (value) => {
+    setSearchIsMiniMovie(value);
+  };
+
+  const onDeleteMovieHandler = (movieId) => {
+    onDeleteMovie(movieId);
+  };
 
   return (
     <>
+      <Alert text={alertError} onClose={alertClose} />
       <Header mixClass="app__wrapper app__header">
         <BurgerMenu>
           <Navigation mixClass="navigation_burger">
@@ -100,8 +119,19 @@ function SavedMovies() {
         </BurgerMenu>
       </Header>
       <main className="app__movie movies" aria-label="Сохраненые фильмы">
-        <SearchForm onSubmit={searchHandler} />
-        <MoviesCardList movies={savedMovies} nameKey="_id" onDeleteMovie={deleteMovieHandler} />
+        <SearchForm
+          onSubmit={onSearchHandler}
+          searchQuery={searchQuery}
+          searchIsMiniMovie={searchIsMiniMovie}
+          onChangeSearchQuery={onChangeSearchQuery}
+          onChangeSearchIsMiniMovie={onChangeSearchIsMiniMovie}
+        />
+        <Preloader />
+        <MoviesCardList
+          movies={savedMovies}
+          nameKey="_id"
+          onDeleteMovie={onDeleteMovieHandler}
+        />
       </main>
       <Footer />
     </>

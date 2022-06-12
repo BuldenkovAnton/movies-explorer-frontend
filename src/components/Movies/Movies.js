@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Alert from "../Alert/Alert";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Navigation from "../Navigation/Navigation";
+import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 
-function Movies() {
+function Movies({ alertError, alertClose, onSearch, onSaveMovie }) {
   const [movies, setMovies] = useState([
     {
       id: 1,
@@ -630,16 +632,29 @@ function Movies() {
     },
   ]);
 
-  const searchHandler = ({ query, check }) => {
-    console.log("поиск по базе фильмов");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchIsMiniMovie, setSearchIsMiniMovie] = useState(true);
+
+  const onSearchHandler = () => {
+    onSearch({searchQuery, searchIsMiniMovie});
   };
 
-  const saveMovieHandler = (movie) => {
-    console.log('сохранить фильм', movie);
-  }
+  const onSaveMovieHandler = (movie) => {
+    onSaveMovie(movie);
+  };
+
+  const onChangeSearchQuery = (value) => {
+      setSearchQuery(value);
+  };
+
+  const onChangeSearchIsMiniMovie = (value) => {
+    setSearchIsMiniMovie(value);
+};
+
 
   return (
     <>
+      <Alert text={alertError} onClose={alertClose} />
       <Header mixClass="app__wrapper app__header">
         <BurgerMenu>
           <Navigation mixClass="navigation_burger">
@@ -671,8 +686,19 @@ function Movies() {
         </BurgerMenu>
       </Header>
       <main className="app__movie movies" aria-label="Фильмы">
-        <SearchForm onSubmit={searchHandler} />
-        <MoviesCardList movies={movies} nameKey="id" onSaveMovie={saveMovieHandler} />
+        <SearchForm
+          onSubmit={onSearchHandler}
+          searchQuery={searchQuery}
+          searchIsMiniMovie={searchIsMiniMovie}
+          onChangeSearchQuery={onChangeSearchQuery}
+          onChangeSearchIsMiniMovie={onChangeSearchIsMiniMovie}
+        />
+        <Preloader />
+        <MoviesCardList
+          movies={movies}
+          nameKey="id"
+          onSaveMovie={onSaveMovieHandler}
+        />
 
         <button className="movies__button-load">Еще</button>
       </main>

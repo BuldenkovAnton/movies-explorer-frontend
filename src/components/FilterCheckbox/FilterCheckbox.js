@@ -8,6 +8,7 @@ function FilterCheckbox({ mixClass, title, onChange, isChecked = false }) {
   return (
     <label className={labelClass}>
       <input
+        name="mini-movie"
         className="filter-checkbox__input"
         type="checkbox"
         checked={isChecked}

@@ -10,6 +10,11 @@
   gap: 27px 24px;
 }
 
+.movies-list__empty {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
 
 @media screen and (max-width: 1250px) {
   .movies-list {
