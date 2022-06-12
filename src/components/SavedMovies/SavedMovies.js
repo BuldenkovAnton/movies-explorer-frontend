@@ -66,9 +66,6 @@ function SavedMovies({ alertError, alertClose, onSearch, onDeleteMovie }) {
     },
   ]);
 
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchIsMiniMovie, setSearchIsMiniMovie] = useState(true);
-
   const onSearchHandler = useCallback(({ query, isMini}) => {
     onSearch({query, isMini});
   }, [onSearch]);
