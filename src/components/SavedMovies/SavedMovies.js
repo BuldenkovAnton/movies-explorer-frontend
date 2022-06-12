@@ -111,7 +111,6 @@ function SavedMovies({ alertError, alertClose, onSearch, onDeleteMovie }) {
         <SearchForm
           onSubmit={onSearchHandler}
         />
-        <Preloader />
         <MoviesCardList
           movies={savedMovies}
           nameKey="_id"
