@@ -13,15 +13,15 @@ function Main() {
     <>
       <Header mixClass="app__wrapper app__header">
         <Navigation>
-          <li className="navigation__item">
-            <Link to="/signup" className="link navigation__link">
+          <li className="navigation__item navigation__item_page_home">
+            <Link to="/signup" className="link navigation__link navigation__link_page_home">
               Регистрация
             </Link>
           </li>
-          <li className="navigation__item">
+          <li className="navigation__item navigation__item_page_home">
             <Link
               to="/signin"
-              className="link navigation__link navigation__link_type_button"
+              className="link navigation__link navigation__link_page_home navigation__link_type_button"
             >
               Войти
             </Link>

@@ -19,34 +19,7 @@
   color: #FFFFFF;
 }
 
-.promo__links {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 96px);
-  grid-template-rows: min-content;
-  justify-content: center;
-  gap: 10px;
-}
 
-.promo__item {
-  box-sizing: border-box;
-  padding: 10px 0;
-  background: #303030;
-  border-radius: 10px;
-  text-align: center;
-}
-
-.promo__link {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 16px;
-  color: #FFFFFF;
-  text-decoration: none;
-}
 
 @media screen and (max-width: 1250px) {
   .promo {
@@ -72,19 +45,5 @@
     margin: 0 auto 212px;
     padding: 0 5px;
     line-height: 37px;
-  }
-
-  .promo__links {
-    grid-template-columns: repeat(3, 82px);
-    gap: 6px;
-  }
-
-  .promo__item {
-    padding: 5px 0;
-  }
-
-  .promo__link {
-    font-size: 10px;
-    line-height: 16px;
   }
 }

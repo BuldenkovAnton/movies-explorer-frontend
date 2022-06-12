@@ -40,7 +40,7 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 16px;
   color: #fff;
   text-decoration: none;
@@ -58,7 +58,7 @@
   .burger-menu__close {
     display: block;
     position: absolute;
-    align-self: flex-end;
+    align-self: end;
   }
 
   .burger-menu__panel {
@@ -74,7 +74,7 @@
 
   .burger-menu__panel_show {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
   }
 
   .burger-menu__container {

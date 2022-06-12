@@ -7,6 +7,7 @@
 @import "./components/BurgerMenu/BurgerMenu.css";
 @import "./components/Navigation/Navigation.css";
 @import "./components/Promo/Promo.css";
+@import "./components/NavTab/NavTab.css";
 @import "./components/AboutProject/AboutProject.css";
 @import "./components/Techs/Techs.css";
 @import "./components/AboutMe/AboutMe.css";
@@ -17,6 +18,7 @@
 @import "./components/Form/Form.css";
 @import "./components/Login/Login.css";
 @import "./components/Register/Register.css";
+@import "./components/Profile/Profile.css";
 
 @import "./components/Movies/Movies.css";
 @import "./components/SearchForm/SearchForm.css";

@@ -46,6 +46,12 @@
   max-width: 1140px;
 }
 
+.app__profile {
+  max-width: 410px;
+  height: calc(100vh - 77px);
+  margin: 0 auto;
+}
+
 .app__movie {
   width: calc(100% - 2 * 70px);
   max-width: 1140px;
@@ -56,7 +62,6 @@
   max-width: 396px;
   height: 100vh;
   padding: 70px 0 71px;
-  box-sizing: border-box;
 }
 
 .link {
@@ -66,7 +71,7 @@
 }
 
 .link:hover {
-  opacity: .7;
+  opacity: .8;
 }
 
 @media screen and (max-width: 1250px) {
@@ -99,6 +104,10 @@
     padding-right: 30px;
   }
 
+  .app__profile {
+    max-width: 410px;
+  }
+
   .app__auth {
     max-width: 396px;
     padding: 232px 0;
@@ -107,10 +116,6 @@
   .app__movie {
     width: calc(100% - 2 * 30px);
   }
-}
-
-@media screen and (max-width: 1100px) {
-
 }
 
 @media screen and (max-width: 760px) {
@@ -142,6 +147,12 @@
   .app__footer {
     padding-left: 10px;
     padding-right: 10px;
+  }
+
+  .app__profile {
+    max-width: 100%;
+    padding-left: 30px;
+    padding-right: 30px;
   }
 
   .app__movie {

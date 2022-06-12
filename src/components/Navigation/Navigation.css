@@ -8,6 +8,10 @@
 
 .navigation__item {
   box-sizing: border-box;
+  margin-right: 20px;
+}
+
+.navigation__item_page_home {
   margin-right: 30px;
 }
 
@@ -37,12 +41,18 @@
 .navigation__link {
   font-family: 'Inter';
   font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 16px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
   color: #fff;
   text-decoration: none;
   display: block;
+}
+
+.navigation__link_page_home {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
 }
 
 .navigation__link_place_about-me {
