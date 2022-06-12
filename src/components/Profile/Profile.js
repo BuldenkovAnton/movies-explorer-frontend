@@ -9,7 +9,7 @@ function Profile() {
   const [name, setName] = useState("Антон");
   const [email, setEmail] = useState("pochata@yandex.ru");
   const [isEdit, setIsEdit] = useState(false);
-  const [fetchError, setFetchError] = useState('');
+  const [fetchError, setFetchError] = useState("");
   const [formValid, setFormValid] = useState(false);
 
   useEffect(() => {
@@ -49,18 +49,27 @@ function Profile() {
       <Header mixClass="app__wrapper app__header">
         <BurgerMenu>
           <Navigation mixClass="navigation_burger">
-            <li className="navigation__item navigation__item_hide_notebook">
-              <Link to="/" className="navigation__link">
+            <li className="navigation__item navigation__item_place_burger  navigation__item_hide_notebook">
+              <Link
+                to="/"
+                className="navigation__link navigation__link_place_burger"
+              >
                 Главная
               </Link>
             </li>
-            <li className="navigation__item">
-              <Link to="/movies" className="navigation__link">
+            <li className="navigation__item navigation__item_place_burger">
+              <Link
+                to="/movies"
+                className="navigation__link navigation__link_place_burger"
+              >
                 Фильмы
               </Link>
             </li>
-            <li className="navigation__item">
-              <Link to="/saved-movies" className="navigation__link">
+            <li className="navigation__item navigation__item_place_burger">
+              <Link
+                to="/saved-movies"
+                className="navigation__link navigation__link_place_burger"
+              >
                 Сохранённые фильмы
               </Link>
             </li>
@@ -118,7 +127,7 @@ function Profile() {
             )}
 
             {isEdit && fetchError && (
-              <p className="profile__error">{ fetchError }</p>
+              <p className="profile__error">{fetchError}</p>
             )}
             {isEdit && (
               <button className="form__button" disabled={!formValid || !isEdit}>

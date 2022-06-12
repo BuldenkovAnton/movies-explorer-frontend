@@ -38,8 +38,13 @@
   color: #8B8B8B;
 }
 
-.movie-card__icon {
+.movie-card__button {
   grid-area: movie-icon;
+  border: 0;
+  background: transparent;
+}
+
+.movie-card__icon {
   align-self: center;
 }
 

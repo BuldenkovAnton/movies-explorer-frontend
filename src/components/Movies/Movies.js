@@ -70,6 +70,7 @@ function Movies() {
       director: " Джонатан Кауэтт",
       country: "Великобритания",
       year: "2009",
+      isSaved: true,
       duration: 82,
       description:
         "Хроники британского фестиваля, который первым нарушил монополию «Гластонбери», «Ридинга» и прочих пивных сборищ в чистом поле — и с тех пор прослыл одним из самых независимых и принципиальных. ATP из года в год проходит на базе отдыха в английской глуши, где артисты и их поклонники живут в одинаковых номерах, не бывает коммерческих спонсоров, программу составляют приглашенные кураторы (в разное время ими были Ник Кейв, Belle & Sebastian, Sonic Youth и даже Мэтт Грейнинг). И, главное, где не любят вздорных людей — основатель фестиваля Барри Хоган однажды сказал, что никогда больше не станет иметь дело с группой Killing Joke, «потому что они му...аки». Эта демократичность сказалась и на фильме: часть съемок сделана адептами фестиваля на мобильный телефон.",
@@ -630,22 +631,31 @@ function Movies() {
   ]);
 
   const searchHandler = ({ query, check }) => {
-
     console.log("поиск по базе фильмов");
   };
+
+  const saveMovieHandler = (movie) => {
+    console.log('сохранить фильм', movie);
+  }
 
   return (
     <>
       <Header mixClass="app__wrapper app__header">
-      <BurgerMenu>
+        <BurgerMenu>
           <Navigation mixClass="navigation_burger">
             <li className="navigation__item navigation__item_place_burger  navigation__item_hide_notebook">
-              <Link to="/" className="navigation__link navigation__link_place_burger">
+              <Link
+                to="/"
+                className="navigation__link navigation__link_place_burger"
+              >
                 Главная
               </Link>
             </li>
             <li className="navigation__item navigation__item_place_burger">
-              <Link to="/movies" className="navigation__link navigation__link_place_burger navigation__link_active">
+              <Link
+                to="/movies"
+                className="navigation__link navigation__link_place_burger navigation__link_active"
+              >
                 Фильмы
               </Link>
             </li>
@@ -662,7 +672,7 @@ function Movies() {
       </Header>
       <main className="app__movie movies" aria-label="Фильмы">
         <SearchForm onSubmit={searchHandler} />
-        <MoviesCardList movies={movies} />
+        <MoviesCardList movies={movies} nameKey="id" onSaveMovie={saveMovieHandler} />
 
         <button className="movies__button-load">Еще</button>
       </main>
