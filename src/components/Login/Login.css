@@ -1,0 +1,52 @@
+.login {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content min-content 1fr;
+  row-gap: 39px;
+}
+
+.login__title {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.login__form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content 1fr;
+}
+
+.login__box-submit {
+  align-self: flex-end;
+}
+
+.login__signup-text {
+  margin: 16px 0 0;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #8B8B8B;
+}
+
+.login__signup-link {
+  text-decoration: none;
+}
+
+@media screen and (max-width: 750px) {
+  .login {
+    row-gap: 50px;
+  }
+
+  .login__title {
+    margin: 0 0 30px;
+    text-align: center;
+  }
+
+  .login__signup-text {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

@@ -1,0 +1,182 @@
+.app {
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  color: #fff;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  background-color: #202020;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+.app__wrapper {
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.app__alert {
+  max-width: 1140px;
+}
+
+.app__header {
+  max-width: 1140px;
+}
+
+.app__promo {
+  width: calc(100% - 2 * 20px);
+  max-width: 1200px;
+  margin: 17px auto 0;
+}
+
+.app__about-project {
+  max-width: 1140px;
+}
+
+.app__techs {
+  max-width: 1140px;
+}
+
+.app__about-me {
+  max-width: 1140px;
+}
+
+.app__footer {
+  max-width: 1140px;
+}
+
+.app__profile {
+  max-width: 410px;
+  height: calc(100vh - 75px);
+  margin: 0 auto;
+}
+
+.app__movie {
+  width: calc(100% - 2 * 70px);
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.app__auth {
+  max-width: 396px;
+  height: 100vh;
+  padding: 70px 0 71px;
+}
+
+.link {
+  opacity: 1;
+  text-decoration: none;
+  transition: opacity .25s ease;
+  cursor: pointer;
+}
+
+.link:hover {
+  opacity: .8;
+}
+
+@media screen and (max-width: 1250px) {
+  .app__wrapper {
+    max-width: 100%;
+  }
+
+  .app__alert {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .app__header {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .app__about-project {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+  .app__techs {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+  .app__about-me {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+  .app__footer {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .app__profile {
+    max-width: 410px;
+  }
+
+  .app__auth {
+    max-width: 396px;
+    padding: 232px 0;
+  }
+
+  .app__movie {
+    width: calc(100% - 2 * 30px);
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .app__header {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .app__alert {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .app__promo {
+    width: calc(100% - 2 * 14px);
+    margin: 14px 14px 0;
+  }
+
+  .app__about-project {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .app__techs {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .app__about-me {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .app__footer {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .app__profile {
+    max-width: 100%;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .app__movie {
+    width: calc(100% - 2 * 10px);
+  }
+
+  .app__auth {
+    padding: 56px 30px 30px;
+  }
+}
+
+

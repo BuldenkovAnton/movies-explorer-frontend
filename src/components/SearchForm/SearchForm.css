@@ -1,0 +1,136 @@
+.search-form {
+  box-sizing: border-box;
+  padding: 67px 0 10px;
+}
+
+.search-form__container {
+  box-sizing: border-box;
+  background: #2F2F2F;
+  border-radius: 9px;
+  padding: 16px 27px 16px 16px;
+  margin: 0 0 69px;
+  display: grid;
+  grid-template-columns: 1fr min-content max-content;
+  grid-template-rows: min-content;
+  align-items: center;
+}
+
+.search-form__fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: grid;
+  box-sizing: border-box;
+}
+
+.search-form__fieldset_input {
+  grid-template-columns:min-content 1fr min-content;
+  grid-template-rows: min-content;
+}
+
+.search-form__fieldset_switch {
+  grid-template-columns: min-content;
+  grid-template-rows: min-content;
+}
+
+.search-form__icon {
+  width: 34px;
+  height: 34px;
+  object-fit: cover;
+  object-position: center center;
+  margin-right: 8px;
+}
+
+.search-form__input {
+  width: 100%;
+  background: transparent;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  color: #8B8B8B;
+  border: 0;
+}
+
+.search-form__input:focus {
+  outline: 0;
+}
+
+.search-form__submit {
+  box-sizing: border-box;
+  margin: 0 0 0 21.35px;
+  padding: 8px 12.35px;
+  border: 0;
+  background: #4285F4;
+  border-radius: 48px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 18px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.search-form__seperate {
+  margin: 0 28px;
+  width: 1px;
+  height: 40px;
+  box-sizing: border-box;
+  border-left: 1px solid #424242;
+}
+
+.search-form__hr {
+  margin: 0;
+  border: 0;
+  border-bottom: 1px solid #424242;
+}
+
+@media screen and (max-width: 1250px) {
+  .search-form {
+    padding: 71px 0 10px;
+  }
+
+  .search-form__container {
+    margin: 0 0 109px;
+    padding: 16px 20px 16px 18px;
+  }
+
+  .search-form__seperate {
+    margin: 0 19px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .search-form__container {
+    margin: 0 0 45px;
+    padding: 19px;
+  }
+
+  .search-form__fieldset_input {
+    grid-template-columns:1fr min-content;
+    grid-template-rows: min-content;
+  }
+
+  .search-form__icon {
+    display: none;
+  }
+
+  .search-form__form {
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content;
+    gap: 45px
+  }
+
+  .search-form__input {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .search-form__seperate {
+    display: none;
+  }
+
+  .search-form__fieldset_switch {
+    display: none;
+  }
+}

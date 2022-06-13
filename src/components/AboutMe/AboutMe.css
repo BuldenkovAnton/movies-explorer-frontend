@@ -1,0 +1,149 @@
+.about-me {
+  box-sizing: border-box;
+  padding-top: 110px;
+  padding-bottom: 105px;
+}
+
+.about-me__title {
+  margin: 0 0 66px 0;
+}
+
+.about-me__card {
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  grid-template-rows: min-content;
+  gap: 0 270px;
+  grid-template-areas:
+  "me-card-conteiner me-foto"
+  "me-links me-foto";
+}
+
+.about-me__card-conteiner {
+  grid-area: me-card-conteiner;
+}
+
+.about-me__name {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  letter-spacing: -0.04em;
+  color: #FFFFFF;
+  margin: 0 0 18px;
+}
+
+.about-me__job {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+  color: #FFFFFF;
+  mix-blend-mode: normal;
+  margin: 0 0 26px;
+}
+
+.about-me__life {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #FFFFFF;
+  mix-blend-mode: normal;
+}
+
+.about-me__links {
+  grid-area: me-links;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  align-self: flex-end;
+}
+
+.about-me__foto {
+  grid-area: me-foto;
+  width: 270px;
+  height: 327px;
+  border-radius: 10px;
+  object-position: center;
+}
+
+@media screen and (max-width: 1250px) {
+  .about-me {
+    padding-top: 90px;
+    padding-bottom: 70px;
+  }
+
+  .about-me__card {
+    gap: 0 49px ;
+  }
+
+  .about-me__name {
+    font-size: 40px;
+    line-height: 40px;
+    margin: 0 0 16px;
+  }
+
+  .about-me__job {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 0 0 20px;
+  }
+
+  .about-me__life {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .about-me__foto {
+    width: 255px;
+    height: 307px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .about-me {
+    padding-top: 70px;
+    padding-bottom: 52px;
+  }
+
+  .about-me__title {
+    margin: 0 0 60px 0;
+  }
+
+  .about-me__card {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repaet(2, max-content);
+    gap: 40px 0;
+    grid-template-areas:
+    "me-foto"
+    "me-card-conteiner"
+    "me-links";
+  }
+
+  .about-me__name {
+    font-size: 30px;
+    line-height: 36px;
+    margin: 0 0 20px;
+  }
+
+  .about-me__job {
+    font-size: 11px;
+    line-height: 16px;
+    margin: 0 0 20px;
+  }
+
+  .about-me__life {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .about-me__foto {
+    width: 100%;
+    height: auto;
+  }
+}
