@@ -39,7 +39,7 @@ function SavedMovies(setAlertError) {
         });
       })
       .catch((errorCode) => {
-        let message = "На сервере произошла ошибка";
+        let message = "При удалении фильма на сервере произошла ошибка";
         setAlertError(message);
       });
   }, [setAlertError]);
