@@ -1,83 +1,86 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Alert from "../Alert/Alert";
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { IsLoaddingContext } from "../../contexts/IsLoaddingContext";
+import { validateEmail, validateName } from "../../utils/validate";
+
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import Form from "../Form/Form";
 import Header from "../Header/Header";
-import Navigation from "../Navigation/Navigation";
 
-function Profile({ alertError, alertClose, signOut, onSubmit }) {
-  const [name, setName] = useState("Антон");
-  const [email, setEmail] = useState("pochata@yandex.ru");
-  const [isEdit, setIsEdit] = useState(false);
+function Profile({ signOut, onSubmit }) {
+  const currentUser = useContext(CurrentUserContext);
+  const isLoading = useContext(IsLoaddingContext);
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [nameDirty, setNameDirty] = useState(false);
+  const [emailDirty, setEmailDirty] = useState(false);
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+
   const [fetchError, setFetchError] = useState("");
   const [formValid, setFormValid] = useState(false);
 
+  React.useEffect(() => {
+    setName(currentUser.name);
+    setEmail(currentUser.email);
+  }, [currentUser]);
+
   useEffect(() => {
-    if (name && email) {
+    if (
+      !nameError &&
+      !emailError &&
+      (name !== currentUser.name || email !== currentUser.email)
+    ) {
       setFormValid(true);
     } else {
       setFormValid(false);
     }
-  }, [name, email]);
-
-  const isEditHandler = useCallback((e) => {
-    setIsEdit(true);
-  }, []);
+  }, [nameError, emailError, currentUser, name, email]);
 
   const changeNameHandler = useCallback((e) => {
     setName(e.target.value);
+    setNameError(validateName(e.target.value));
   }, []);
 
   const changeEmailHandler = useCallback((e) => {
     setEmail(e.target.value);
+    setEmailError(validateEmail(e.target.value));
   }, []);
 
-  const onSubmitHandler = useCallback((e) => {
-    e.preventDefault();
+  function handleBlur(e) {
+    switch (e.target.name) {
+      case "name":
+        setNameDirty(true);
+        break;
+      case "email":
+        setEmailDirty(true);
+        break;
+    }
+  }
 
-    onSubmit({name, email});
-    setIsEdit(false);
-  }, [onSubmit, name, email]);
+  const onSubmitHandler = useCallback(
+    (e) => {
+      e.preventDefault();
 
-  const onSignOutHandler = useCallback((e) => {
-    e.preventDefault();
+      onSubmit({ name, email });
+    },
+    [onSubmit, name, email]
+  );
 
-    signOut();
-  }, [signOut]);
+  const onSignOutHandler = useCallback(
+    (e) => {
+      e.preventDefault();
+
+      signOut();
+    },
+    [signOut]
+  );
 
   return (
     <>
-      <Alert text={alertError} onClose={alertClose} />
       <Header mixClass="app__wrapper app__header">
-        <BurgerMenu>
-          <Navigation mixClass="navigation_burger">
-            <li className="navigation__item navigation__item_place_burger  navigation__item_hide_notebook">
-              <Link
-                to="/"
-                className="navigation__link navigation__link_place_burger"
-              >
-                Главная
-              </Link>
-            </li>
-            <li className="navigation__item navigation__item_place_burger">
-              <Link
-                to="/movies"
-                className="navigation__link navigation__link_place_burger"
-              >
-                Фильмы
-              </Link>
-            </li>
-            <li className="navigation__item navigation__item_place_burger">
-              <Link
-                to="/saved-movies"
-                className="navigation__link navigation__link_place_burger"
-              >
-                Сохранённые фильмы
-              </Link>
-            </li>
-          </Navigation>
-        </BurgerMenu>
+        <BurgerMenu />
       </Header>
       <section className="app__wrapper app__profile profile">
         <h1 className="profile__title">Привет, Антон!</h1>
@@ -90,8 +93,8 @@ function Profile({ alertError, alertClose, signOut, onSubmit }) {
               value={name}
               className="form__input form__input_place_profile"
               type="text"
+              onBlur={handleBlur}
               onChange={changeNameHandler}
-              disabled={!isEdit}
             />
           </fieldset>
 
@@ -105,18 +108,21 @@ function Profile({ alertError, alertClose, signOut, onSubmit }) {
               value={email}
               className="form__input form__input_place_profile"
               type="email"
+              onBlur={handleBlur}
               onChange={changeEmailHandler}
-              disabled={!isEdit}
             />
           </fieldset>
 
           <fieldset className="form__fieldset form__fieldset_place_profile">
-            {!isEdit && (
+            {formValid && (
+              <button className="form__button" disabled={!formValid}>
+                 {isLoading ? "Созранение..." : "Сохранить"}
+              </button>
+            )}
+
+            {!formValid && (
               <>
-                <button
-                  className="link form__button-link form__button_place_profile"
-                  onClick={isEditHandler}
-                >
+                <button className="link form__button-link form__button_place_profile">
                   Редактировать
                 </button>
 
@@ -129,14 +135,7 @@ function Profile({ alertError, alertClose, signOut, onSubmit }) {
               </>
             )}
 
-            {isEdit && fetchError && (
-              <p className="profile__error">{fetchError}</p>
-            )}
-            {isEdit && (
-              <button className="form__button" disabled={!formValid || !isEdit}>
-                Сохранить
-              </button>
-            )}
+            {fetchError && <p className="profile__error">{fetchError}</p>}
           </fieldset>
         </Form>
       </section>
