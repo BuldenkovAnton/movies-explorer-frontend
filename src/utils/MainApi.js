@@ -105,7 +105,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'https://api.diplom.buldenkov.nomoredomains.xyz/signin',
   headers: {
     'Content-Type': 'application/json'
   }
