@@ -1,9 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList({ movies, nameKey, saveMovie = null, deleteMovie = null }) {
-  const [cardsFirstShow, setCardsFirstShow] = useState(0);
-  const [cardsAddInShow, setCardsAddInShow] = useState(0);
+function MoviesCardList({
+  movies,
+  nameKey,
+  saveMovie = null,
+  deleteMovie = null,
+}) {
+  const [cardsFirstShow, setCardsFirstShow] = useState(12);
+  const [cardsAddInShow, setCardsAddInShow] = useState(3);
   const [cardsAddShowed, setCardsAddShowed] = useState(0);
   const [moviesList, setMoviesList] = useState(movies);
 
@@ -46,25 +51,32 @@ function MoviesCardList({ movies, nameKey, saveMovie = null, deleteMovie = null 
   }, [movies, cardsFirstShow, cardsAddShowed]);
 
   const showMoreCardHandler = useCallback(() => {
-    setCardsAddShowed(prevValue => prevValue + cardsAddInShow)
+    setCardsAddShowed((prevValue) => prevValue + cardsAddInShow);
   }, [cardsAddInShow]);
 
   return (
     <>
-      <ul className="movies-list">
-        {moviesList.map((movie) => (
-          <li className="movies-list__item" key={movie[nameKey]}>
-            <MoviesCard
-              movie={movie}
-              saveMovie={saveMovie}
-              deleteMovie={deleteMovie}
-            />
-          </li>
-        ))}
-      </ul>
+      {moviesList.length > 0 && (
+        <ul className="movies-list">
+          {moviesList.map((movie) => (
+            <li className="movies-list__item" key={movie[nameKey]}>
+              <MoviesCard
+                movie={movie}
+                saveMovie={saveMovie}
+                deleteMovie={deleteMovie}
+              />
+            </li>
+          ))}
+        </ul>
+      )}
 
-      {(movies.length > cardsFirstShow + cardsAddShowed) && (
-        <button className="movies-list__button-load" onClick={showMoreCardHandler}>Еще</button>
+      {movies.length > 0 && movies.length > cardsFirstShow + cardsAddShowed && (
+        <button
+          className="movies-list__button-load"
+          onClick={showMoreCardHandler}
+        >
+          Еще
+        </button>
       )}
     </>
   );
