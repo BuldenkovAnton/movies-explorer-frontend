@@ -31,7 +31,6 @@ function SavedMovies(setAlertError) {
   }, [setAlertError]);
 
   const deleteMovieHandler = useCallback((id) => {
-    console.log("удалить фильм", id);
     api
       .deleteMovie(id)
       .then((data) => {

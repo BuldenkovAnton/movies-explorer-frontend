@@ -34,44 +34,6 @@ function Movies({ setAlertError }) {
   const [query, setQuery] = useState("");
   const [queryIsMiniMovie, setQueryIsMiniMovie] = useState(false);
 
-  useEffect(() => {
-    getSearchQueryFromLocalStorage(setQuery);
-    getSearchIsMiniFromLocalStorage(setQueryIsMiniMovie);
-    getMoviesFilteredFromLocalStorage(setMoviesFiltered);
-    getMoviesSavedFromLocalStorage(setMoviesSaved);
-    getMoviesAllFromLocalStorage(setMoviesAll);
-  }, []);
-
-  useEffect(() => {
-    console.log('getSavedMoviesHandler');
-    getSavedMoviesHandler();
-  }, []);
-
-  useEffect(() => {
-    setMoviesSavedInLocalStorage(moviesSaved);
-  }, [moviesSaved]);
-
-  useEffect(() => {
-    if (firstSearching) return;
-
-    getMoviesFromBaseHandle();
-  }, [firstSearching]);
-
-  useEffect(() => {
-    console.log("useEffect filter");
-    console.log('useEffect filter in', moviesAll.length > 0,  isSearching);
-    if (moviesAll.length > 0) {
-      filterHandler();
-    }
-  }, [moviesAll, moviesSaved, isSearching, queryIsMiniMovie]);
-
-  useEffect(() => {
-    if (moviesAll.length > 0 && isSearching) {
-      setMoviesFilteredInLocalStorage(moviesFiltered);
-    }
-    setIsSearching(false);
-  }, [moviesFiltered]);
-
   const getMoviesFromBaseHandle = useCallback(() => {
     movieApi
       .getAllMovies()
@@ -104,7 +66,6 @@ function Movies({ setAlertError }) {
   }, [setAlertError]);
 
   const filterHandler = useCallback(() => {
-    console.log("filterHandler");
 
     const filterMovies = filterForMovies(moviesAll, query, queryIsMiniMovie);
     const newMovies = filterMovies.map((movie) => {
@@ -113,7 +74,6 @@ function Movies({ setAlertError }) {
       return movie;
     });
 
-    console.log("filtered", newMovies);
     setMoviesFiltered(newMovies);
 
     setSearchQueryInLocalStorage(query);
@@ -122,7 +82,6 @@ function Movies({ setAlertError }) {
   }, [moviesAll, moviesSaved, query, queryIsMiniMovie, moviesFiltered]);
 
   const searchHandler = useCallback(() => {
-    console.log("search handler", firstSearching, query);
     setMoviesError("");
 
     if (!query) {
@@ -131,7 +90,6 @@ function Movies({ setAlertError }) {
     }
 
     if (firstSearching) {
-      console.log("search handler is firstSearching", firstSearching);
       setFirstSearching(false);
     }
 
@@ -148,7 +106,6 @@ function Movies({ setAlertError }) {
 
   const saveMovieHandler = useCallback(
     (movie) => {
-      console.log("сохранить фильм", movie);
       const movieSave = createMovieForBase(movie);
 
       api
@@ -168,7 +125,6 @@ function Movies({ setAlertError }) {
 
   const deleteMovieHandler = useCallback(
     (id) => {
-      console.log("удалить фильм", id);
       api
         .deleteMovie(id)
         .then((data) => {
@@ -183,6 +139,41 @@ function Movies({ setAlertError }) {
     },
     [setAlertError]
   );
+
+  useEffect(() => {
+    getSearchQueryFromLocalStorage(setQuery);
+    getSearchIsMiniFromLocalStorage(setQueryIsMiniMovie);
+    getMoviesFilteredFromLocalStorage(setMoviesFiltered);
+    getMoviesSavedFromLocalStorage(setMoviesSaved);
+    getMoviesAllFromLocalStorage(setMoviesAll);
+  }, []);
+
+  useEffect(() => {
+    getSavedMoviesHandler();
+  }, []);
+
+  useEffect(() => {
+    setMoviesSavedInLocalStorage(moviesSaved);
+  }, [moviesSaved]);
+
+  useEffect(() => {
+    if (firstSearching) return;
+
+    getMoviesFromBaseHandle();
+  }, [firstSearching]);
+
+  useEffect(() => {
+    if (moviesAll.length > 0) {
+      filterHandler();
+    }
+  }, [moviesAll, moviesSaved, queryIsMiniMovie]);
+
+  useEffect(() => {
+    if (moviesAll.length > 0 && isSearching) {
+      setMoviesFilteredInLocalStorage(moviesFiltered);
+    }
+    setIsSearching(false);
+  }, [moviesFiltered]);
 
   return (
     <>

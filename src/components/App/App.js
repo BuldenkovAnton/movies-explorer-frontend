@@ -78,6 +78,7 @@ function App() {
     ({ email, password }) => {
       setIsLoading(true);
       setAlertMessage("");
+      removeDataInLocalStorage();
 
       return api
         .authorize(email, password)
@@ -122,15 +123,19 @@ function App() {
 
   const signOutHandler = useCallback(() => {
     return api.logout().then((message) => {
-      removeMoviesAllInLocalStorage();
-      removeMoviesFilteredInLocalStorage();
-      removeMoviesSavedInLocalStorage();
-      removeSearchQueryInLocalStorage();
-      removeSearchIsMiniInLocalStorage();
+      removeDataInLocalStorage();
       setLoggedIn(false);
       history.push("/");
     });
   }, [history]);
+
+  const removeDataInLocalStorage = useCallback(() => {
+    removeMoviesAllInLocalStorage();
+    removeMoviesFilteredInLocalStorage();
+    removeMoviesSavedInLocalStorage();
+    removeSearchQueryInLocalStorage();
+    removeSearchIsMiniInLocalStorage();
+  }, []);
 
   const saveProfileHandler = useCallback(
     ({ name, email }) => {
@@ -153,8 +158,6 @@ function App() {
           showAlertErrorHandler(message);
         })
         .finally(() => setIsLoading(false));
-
-      console.log("сохранение", name, email);
     },
     [showAlertErrorHandler, showAlertSuccessHandler]
   );
