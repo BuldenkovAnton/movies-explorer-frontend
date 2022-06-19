@@ -166,7 +166,7 @@ function Movies({ setAlertError }) {
     if (moviesAll.length > 0) {
       filterHandler();
     }
-  }, [moviesAll, moviesSaved, queryIsMiniMovie]);
+  }, [moviesAll, moviesSaved, isSearching, queryIsMiniMovie]);
 
   useEffect(() => {
     if (moviesAll.length > 0 && isSearching) {
