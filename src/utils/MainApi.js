@@ -105,7 +105,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'https://api.diplom.buldenkov.nomoredomains.xyz/signin',
+  baseUrl: 'https://api.diplom.buldenkov.nomoredomains.xyz',
   headers: {
     'Content-Type': 'application/json'
   }
