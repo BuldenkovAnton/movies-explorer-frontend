@@ -105,7 +105,7 @@ function App() {
       return api
         .register(name, email, password)
         .then((response) => {
-          tokenCheck();
+          loginHandler(email, password);
         })
         .catch((errorCode) => {
           let message = "На сервере произошла ошибка";
