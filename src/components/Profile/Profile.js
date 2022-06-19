@@ -7,7 +7,7 @@ import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import Form from "../Form/Form";
 import Header from "../Header/Header";
 
-function Profile({ signOut, onSubmit }) {
+function Profile({ signOut, onSubmit, profileError, setProfileError }) {
   const currentUser = useContext(CurrentUserContext);
   const isLoading = useContext(IsLoaddingContext);
 
@@ -17,14 +17,18 @@ function Profile({ signOut, onSubmit }) {
   const [emailDirty, setEmailDirty] = useState(false);
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
-
-  const [fetchError, setFetchError] = useState("");
   const [formValid, setFormValid] = useState(false);
+  const [submitDisabled, setSubmitDisabled] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setName(currentUser.name);
     setEmail(currentUser.email);
   }, [currentUser]);
+
+  useEffect(() => {
+    if (profileError) setSubmitDisabled(true);
+    else setSubmitDisabled(false);
+  }, [profileError]);
 
   useEffect(() => {
     if (
@@ -36,6 +40,7 @@ function Profile({ signOut, onSubmit }) {
     } else {
       setFormValid(false);
     }
+    setProfileError("");
   }, [nameError, emailError, currentUser, name, email]);
 
   const changeNameHandler = useCallback((e) => {
@@ -96,6 +101,11 @@ function Profile({ signOut, onSubmit }) {
               onBlur={handleBlur}
               onChange={changeNameHandler}
             />
+            {nameDirty && nameError && (
+              <span className="form__input-error form__input-error_place_profile">
+                {nameError}
+              </span>
+            )}
           </fieldset>
 
           <fieldset className="form__fieldset form__fieldset_place_profile">
@@ -111,12 +121,19 @@ function Profile({ signOut, onSubmit }) {
               onBlur={handleBlur}
               onChange={changeEmailHandler}
             />
+            {emailDirty && emailError && (
+              <span className="form__input-error form__input-error_place_profile">
+                {emailError}
+              </span>
+            )}
           </fieldset>
 
           <fieldset className="form__fieldset form__fieldset_place_profile">
+            {profileError && <p className="profile__error">{profileError}</p>}
+
             {formValid && (
-              <button className="form__button" disabled={!formValid}>
-                 {isLoading ? "Созранение..." : "Сохранить"}
+              <button className="form__button" disabled={submitDisabled}>
+                {isLoading ? "Созранение..." : "Сохранить"}
               </button>
             )}
 
@@ -134,8 +151,6 @@ function Profile({ signOut, onSubmit }) {
                 </button>
               </>
             )}
-
-            {fetchError && <p className="profile__error">{fetchError}</p>}
           </fieldset>
         </Form>
       </section>
