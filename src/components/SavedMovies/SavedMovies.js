@@ -1,15 +1,11 @@
 import React, { useCallback, useState } from "react";
-import { Link } from "react-router-dom";
 import Alert from "../Alert/Alert";
-import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import Navigation from "../Navigation/Navigation";
-import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 
-function SavedMovies({ alertError, alertClose, onSearch, onDeleteMovie }) {
+function SavedMovies({ onSearch, onDeleteMovie }) {
   const [savedMovies, setSavedMovies] = useState([
     {
       _id: 1,
@@ -76,37 +72,7 @@ function SavedMovies({ alertError, alertClose, onSearch, onDeleteMovie }) {
 
   return (
     <>
-      <Alert text={alertError} onClose={alertClose} />
-      <Header mixClass="app__wrapper app__header">
-        <BurgerMenu>
-          <Navigation mixClass="navigation_burger">
-            <li className="navigation__item navigation__item_place_burger  navigation__item_hide_notebook">
-              <Link
-                to="/"
-                className="navigation__link navigation__link_place_burger"
-              >
-                Главная
-              </Link>
-            </li>
-            <li className="navigation__item navigation__item_place_burger">
-              <Link
-                to="/movies"
-                className="navigation__link navigation__link_place_burger"
-              >
-                Фильмы
-              </Link>
-            </li>
-            <li className="navigation__item navigation__item_place_burger">
-              <Link
-                to="/saved-movies"
-                className="navigation__link navigation__link_place_burger navigation__link_active"
-              >
-                Сохранённые фильмы
-              </Link>
-            </li>
-          </Navigation>
-        </BurgerMenu>
-      </Header>
+      <Header mixClass="app__wrapper app__header" />
       <main className="app__movie movies" aria-label="Сохраненые фильмы">
         <SearchForm
           onSubmit={onSearchHandler}
