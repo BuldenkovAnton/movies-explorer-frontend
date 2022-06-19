@@ -4,6 +4,8 @@
 [diplom.buldenkov.nomoredomains.xyz](http://diplom.buldenkov.nomoredomains.xyz/)
 IP: 51.250.98.222
 
+[Макет figma](https://www.figma.com/file/J5ys3IuFyxYOC473xRcafh/Diplom?node-id=891%3A3857)
+
 **Технологии**
 
 В работе использовались следующие технологии: html, css, flex, grid, js, react.
