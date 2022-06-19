@@ -18,6 +18,7 @@ import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 
 import "./App.css";
+import { removeMoviesAllInLocalStorage, removeMoviesFilteredInLocalStorage, removeMoviesSavedInLocalStorage, removeSearchIsMiniInLocalStorage, removeSearchQueryInLocalStorage } from "../../utils/localStorage";
 
 function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
@@ -111,6 +112,11 @@ function App() {
 
   const signOutHandler = useCallback(() => {
     return api.logout().then((message) => {
+      removeMoviesAllInLocalStorage();
+      removeMoviesFilteredInLocalStorage();
+      removeMoviesSavedInLocalStorage();
+      removeSearchQueryInLocalStorage();
+      removeSearchIsMiniInLocalStorage();
       setLoggedIn(false);
       history.push("/");
     });
