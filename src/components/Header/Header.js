@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import Logo from "../Logo/Logo";
 
 function Header({ children, mixClass = '' }) {
@@ -10,7 +11,7 @@ function Header({ children, mixClass = '' }) {
     <header className={headerClass}>
       <Logo />
 
-      { children }
+      <BurgerMenu />
     </header>
   );
 }
