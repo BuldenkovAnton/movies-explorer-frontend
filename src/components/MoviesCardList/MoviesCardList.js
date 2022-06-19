@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList({ movies, saveMovie = null, deleteMovie = null }) {
+function MoviesCardList({ movies, nameKey, saveMovie = null, deleteMovie = null }) {
   const [cardsFirstShow, setCardsFirstShow] = useState(0);
   const [cardsAddInShow, setCardsAddInShow] = useState(0);
   const [cardsAddShowed, setCardsAddShowed] = useState(0);
@@ -53,7 +53,7 @@ function MoviesCardList({ movies, saveMovie = null, deleteMovie = null }) {
     <>
       <ul className="movies-list">
         {moviesList.map((movie) => (
-          <li className="movies-list__item" key={movie.id}>
+          <li className="movies-list__item" key={movie[nameKey]}>
             <MoviesCard
               movie={movie}
               saveMovie={saveMovie}

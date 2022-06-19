@@ -22,23 +22,16 @@ function Movies({ setAlertError }) {
   const [query, setQuery] = useState("");
   const [queryIsMiniMovie, setQueryIsMiniMovie] = useState(false);
 
-  // useEffect(() => {
-  //   if (localStorage.getItem("movies"))
-  //     setMoviesAll(JSON.parse(localStorage.getItem("movies")));
-  //   if (localStorage.getItem("query"))
-  //     setQuery(localStorage.getItem("query"));
-  //   if (localStorage.getItem("qqueryIsMiniMovieery"))
-  //     setQueryIsMiniMovie(localStorage.getItem("queryIsMiniMovie"));
-  //   if (localStorage.getItem("moviesFiltered"))
-  //     setMoviesFiltered(JSON.parse(localStorage.getItem("moviesFiltered")));
-  //   if (localStorage.getItem("moviesSaved"))
-  //     setMoviesSaved(JSON.parse(localStorage.getItem("moviesSaved")));
-  // }, []);
-
-
-
-
-
+  useEffect(() => {
+    if (localStorage.getItem("query"))
+      setQuery(localStorage.getItem("query"));
+    if (localStorage.getItem("qqueryIsMiniMovieery"))
+      setQueryIsMiniMovie(localStorage.getItem("queryIsMiniMovie"));
+    if (localStorage.getItem("moviesFiltered"))
+      setMoviesFiltered(JSON.parse(localStorage.getItem("moviesFiltered")));
+    if (localStorage.getItem("moviesSaved"))
+      setMoviesSaved(JSON.parse(localStorage.getItem("moviesSaved")));
+  }, []);
 
   useEffect(() => {
     if (fisrtSearching) return;
@@ -59,8 +52,6 @@ function Movies({ setAlertError }) {
   useEffect(() => {
     setIsSearching(false);
   }, [moviesFiltered]);
-
-
 
   const getSavedMoviesHandler = useCallback(() => {
     api.getSavedMovies().then((movies) => {
@@ -105,7 +96,7 @@ function Movies({ setAlertError }) {
       })
       .then((items) => {
         setMoviesAll(items);
-        localStorage.setItem("movies", JSON.stringify(items));
+        setMoviesError('');
       })
       .catch(() => {
         let message =
@@ -173,7 +164,7 @@ function Movies({ setAlertError }) {
 
         {isSearching && <Preloader />}
 
-        {moviesError && (
+        {!isSearching && moviesError && (
           <p className="movies-list__empty">
           Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз
           </p>
@@ -182,6 +173,7 @@ function Movies({ setAlertError }) {
         {moviesFiltered && (
           <MoviesCardList
             movies={moviesFiltered}
+            nameKey="id"
             saveMovie={saveMovieHandler}
             deleteMovie={deleteMovieHandler}
           />

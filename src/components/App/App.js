@@ -13,6 +13,7 @@ import Page404 from "../Page404/Page404";
 import Login from "../Login/Login";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
+import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 
@@ -173,11 +174,10 @@ function App() {
               setAlertError={showAlertErrorHandler}
             />
 
-            {/* <ProtectedRoute
+            <ProtectedRoute
               path="/saved-movies"
               component={SavedMovies}
-              onDeleteMovie={deleteMovieHandler}
-            /> */}
+            />
             <Route>
               <Page404 />
             </Route>
