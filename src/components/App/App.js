@@ -18,7 +18,13 @@ import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 
 import "./App.css";
-import { removeMoviesAllInLocalStorage, removeMoviesFilteredInLocalStorage, removeMoviesSavedInLocalStorage, removeSearchIsMiniInLocalStorage, removeSearchQueryInLocalStorage } from "../../utils/localStorage";
+import {
+  removeMoviesAllInLocalStorage,
+  removeMoviesFilteredInLocalStorage,
+  removeMoviesSavedInLocalStorage,
+  removeSearchIsMiniInLocalStorage,
+  removeSearchQueryInLocalStorage,
+} from "../../utils/localStorage";
 
 function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
@@ -35,21 +41,21 @@ function App() {
   const history = useHistory();
   const location = useLocation();
 
-  useEffect(() => {
+  const closeAlertHandler = useCallback(() => {
     setAlertMessage("");
-  }, [location]);
-
-  useEffect(() => {
-    tokenCheck();
   }, []);
 
-  useEffect(() => {
-    if (loggedIn) {
-      history.push("/movies");
-    }
-  }, [loggedIn]);
+  const showAlertErrorHandler = useCallback((text) => {
+    setAlertMessage(text);
+    setAlertSucces(false);
+  }, []);
 
-  function tokenCheck() {
+  const showAlertSuccessHandler = useCallback((text) => {
+    setAlertMessage(text);
+    setAlertSucces(true);
+  }, []);
+
+  const tokenCheck = useCallback(() => {
     if (getCookie("jwtToken")) {
       return api
         .checkMe()
@@ -63,15 +69,14 @@ function App() {
             message =
               "При авторизации произошла ошибка. Токен не передан или передан не в том формате";
 
-          setAlertMessage(message);
-          setAlertSucces(false);
+          showAlertErrorHandler(message);
         });
     }
-  }
+  }, [showAlertErrorHandler]);
 
   const loginHandler = useCallback(({ email, password }) => {
     setIsLoading(true);
-    console.log("Авторизация");
+    setAlertMessage("");
 
     return api
       .authorize(email, password)
@@ -83,14 +88,14 @@ function App() {
         if (errorCode === 401)
           message = "Вы ввели неправильный логин или пароль";
 
-        setAlertMessage(message);
-        setAlertSucces(false);
+        showAlertErrorHandler(message);
       })
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [showAlertErrorHandler, tokenCheck]);
 
   const registerHandler = useCallback(({ name, email, password }) => {
     setIsLoading(true);
+    setAlertMessage("");
 
     return api
       .register(name, email, password)
@@ -104,11 +109,10 @@ function App() {
         if (errorCode === 409)
           message = "Пользователь с таким email уже существует";
 
-          setAlertMessage(message);
-          setAlertSucces(false);
+        showAlertErrorHandler(message);
       })
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [showAlertErrorHandler, tokenCheck]);
 
   const signOutHandler = useCallback(() => {
     return api.logout().then((message) => {
@@ -120,7 +124,7 @@ function App() {
       setLoggedIn(false);
       history.push("/");
     });
-  }, []);
+  }, [history]);
 
   const saveProfileHandler = useCallback(({ name, email }) => {
     api
@@ -131,8 +135,7 @@ function App() {
           name: user.name,
           email: user.email,
         });
-        setAlertMessage('Пользователь сохранен');
-        setAlertSucces(true);
+        showAlertSuccessHandler("Пользователь сохранен");
       })
       .catch((errorCode) => {
         let message = "На сервере произошла ошибка";
@@ -140,28 +143,38 @@ function App() {
           message = "При обновлении профиля произошла ошибка";
         if (errorCode === 409)
           message = "Пользователь с таким email уже существует";
-        setProfileError(message);
-        setAlertSucces(false);
+        showAlertErrorHandler(message);
       })
       .finally(() => setIsLoading(false));
 
     console.log("сохранение", name, email);
-  }, []);
+  }, [showAlertErrorHandler, showAlertSuccessHandler]);
 
-  const closeAlertHandler = useCallback(() => {
+
+
+  useEffect(() => {
     setAlertMessage("");
-  }, []);
+  }, [location]);
 
-  const showAlertErrorHandler = useCallback((text) => {
-    setAlertMessage(text);
-    setAlertSucces(false);
-  }, []);
+  useEffect(() => {
+    tokenCheck();
+  }, [tokenCheck]);
+
+  useEffect(() => {
+    if (loggedIn) {
+      history.push("/movies");
+    }
+  }, [loggedIn, history]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <IsLoggedContext.Provider value={loggedIn}>
         <IsLoaddingContext.Provider value={isLoading}>
-          <Alert text={alertMessage} isSuccess={alertSucces} onClose={closeAlertHandler} />
+          <Alert
+            text={alertMessage}
+            isSuccess={alertSucces}
+            onClose={closeAlertHandler}
+          />
 
           <Switch>
             <Route path="/" exact>
@@ -191,10 +204,7 @@ function App() {
               setAlertError={showAlertErrorHandler}
             />
 
-            <ProtectedRoute
-              path="/saved-movies"
-              component={SavedMovies}
-            />
+            <ProtectedRoute path="/saved-movies" component={SavedMovies} />
             <Route>
               <Page404 />
             </Route>

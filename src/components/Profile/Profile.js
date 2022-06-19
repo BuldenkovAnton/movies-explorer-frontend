@@ -41,7 +41,7 @@ function Profile({ signOut, onSubmit, profileError, setProfileError }) {
       setFormValid(false);
     }
     setProfileError("");
-  }, [nameError, emailError, currentUser, name, email]);
+  }, [nameError, emailError, currentUser, name, email, setProfileError]);
 
   const changeNameHandler = useCallback((e) => {
     setName(e.target.value);
@@ -54,14 +54,8 @@ function Profile({ signOut, onSubmit, profileError, setProfileError }) {
   }, []);
 
   function handleBlur(e) {
-    switch (e.target.name) {
-      case "name":
-        setNameDirty(true);
-        break;
-      case "email":
-        setEmailDirty(true);
-        break;
-    }
+    if (e.target.name === 'name') setNameDirty(true);
+    if (e.target.name === 'email') setEmailDirty(true);
   }
 
   const onSubmitHandler = useCallback(
