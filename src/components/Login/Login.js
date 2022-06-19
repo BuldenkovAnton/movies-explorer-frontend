@@ -1,39 +1,53 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Alert from "../Alert/Alert";
+import { IsLoaddingContext } from "../../contexts/IsLoaddingContext";
+import { validateEmail, validatePassword } from "../../utils/validate";
+
 import Form from "../Form/Form";
 import Header from "../Header/Header";
 
-function Login({ alertError, alertClose, onSubmit }) {
+function Login({ onSubmit }) {
+  const isLoading = useContext(IsLoaddingContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailDirty, setEmailDirty] = useState(false);
+  const [emailError, setEmailError] = useState("");
+
   const [formValid, setFormValid] = useState(false);
 
   useEffect(() => {
-    if (email && password) {
+    if (!emailError && email && password) {
       setFormValid(true);
     } else {
       setFormValid(false);
     }
-  }, [email, password]);
+  }, [emailError, email, password]);
 
   const changeEmailHandler = useCallback((e) => {
     setEmail(e.target.value);
+    setEmailError(validateEmail(e.target.value));
   }, []);
 
   const changePasswordHandler = useCallback((e) => {
     setPassword(e.target.value);
   }, []);
 
-  const submitHandler = useCallback((e) => {
-    e.preventDefault();
+  const blurHandler = useCallback((e) => {
+       setEmailDirty(true);
+  }, []);
 
-    onSubmit({ email, password });
-  }, [onSubmit, email, password]);
+  const submitHandler = useCallback(
+    (e) => {
+      e.preventDefault();
+
+      onSubmit({ email, password });
+    },
+    [onSubmit, email, password]
+  );
 
   return (
     <>
-      <Alert text={alertError} onClose={alertClose} />
       <div className="app__wrapper app__auth login">
         <Header mixClass="header_auth" />
         <h1 className="login__title">Рады видеть!</h1>
@@ -47,7 +61,11 @@ function Login({ alertError, alertClose, onSubmit }) {
                 className="form__input"
                 type="email"
                 onChange={changeEmailHandler}
+                onBlur={blurHandler}
               />
+              {emailDirty && emailError && (
+                <span className="form__input-error">{emailError}</span>
+              )}
             </label>
 
             <label className="form__label">
@@ -63,7 +81,7 @@ function Login({ alertError, alertClose, onSubmit }) {
 
           <fieldset className="form__fieldset login__box-submit">
             <button className="form__button" disabled={!formValid}>
-              Войти
+              {isLoading ? "Вход..." : "Войти"}
             </button>
             <p className="login__signup-text">
               Ещё не зарегистрированы?{" "}
