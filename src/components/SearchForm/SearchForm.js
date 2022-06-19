@@ -9,7 +9,9 @@ function SearchForm({ query, queryIsMiniMovie, onSubmit, onChangeQuery, onChange
 
   const changeIsMiniMovieHandler = useCallback((e) => {
     onChangeIsMiniMovie(e.target.checked);
-  }, [onChangeIsMiniMovie]);
+
+    onSubmit();
+  }, [onChangeIsMiniMovie, onSubmit]);
 
   const submitHandler = useCallback(
     (e) => {

@@ -74,45 +74,51 @@ function App() {
     }
   }, [showAlertErrorHandler]);
 
-  const loginHandler = useCallback(({ email, password }) => {
-    setIsLoading(true);
-    setAlertMessage("");
+  const loginHandler = useCallback(
+    ({ email, password }) => {
+      setIsLoading(true);
+      setAlertMessage("");
 
-    return api
-      .authorize(email, password)
-      .then((message) => {
-        tokenCheck();
-      })
-      .catch((errorCode) => {
-        let message = "На сервере произошла ошибка";
-        if (errorCode === 401)
-          message = "Вы ввели неправильный логин или пароль";
+      return api
+        .authorize(email, password)
+        .then((message) => {
+          tokenCheck();
+        })
+        .catch((errorCode) => {
+          let message = "На сервере произошла ошибка";
+          if (errorCode === 401)
+            message = "Вы ввели неправильный логин или пароль";
 
-        showAlertErrorHandler(message);
-      })
-      .finally(() => setIsLoading(false));
-  }, [showAlertErrorHandler, tokenCheck]);
+          showAlertErrorHandler(message);
+        })
+        .finally(() => setIsLoading(false));
+    },
+    [showAlertErrorHandler, tokenCheck]
+  );
 
-  const registerHandler = useCallback(({ name, email, password }) => {
-    setIsLoading(true);
-    setAlertMessage("");
+  const registerHandler = useCallback(
+    ({ name, email, password }) => {
+      setIsLoading(true);
+      setAlertMessage("");
 
-    return api
-      .register(name, email, password)
-      .then((response) => {
-        tokenCheck();
-      })
-      .catch((errorCode) => {
-        let message = "На сервере произошла ошибка";
-        if (errorCode === 400)
-          message = "При регистрации пользователя произошла ошибка";
-        if (errorCode === 409)
-          message = "Пользователь с таким email уже существует";
+      return api
+        .register(name, email, password)
+        .then((response) => {
+          tokenCheck();
+        })
+        .catch((errorCode) => {
+          let message = "На сервере произошла ошибка";
+          if (errorCode === 400)
+            message = "При регистрации пользователя произошла ошибка";
+          if (errorCode === 409)
+            message = "Пользователь с таким email уже существует";
 
-        showAlertErrorHandler(message);
-      })
-      .finally(() => setIsLoading(false));
-  }, [showAlertErrorHandler, tokenCheck]);
+          showAlertErrorHandler(message);
+        })
+        .finally(() => setIsLoading(false));
+    },
+    [showAlertErrorHandler, tokenCheck]
+  );
 
   const signOutHandler = useCallback(() => {
     return api.logout().then((message) => {
@@ -126,31 +132,32 @@ function App() {
     });
   }, [history]);
 
-  const saveProfileHandler = useCallback(({ name, email }) => {
-    api
-      .setUserInfo(name, email)
-      .then((user) => {
-        setCurrentUser({
-          _id: user._id,
-          name: user.name,
-          email: user.email,
-        });
-        showAlertSuccessHandler("Пользователь сохранен");
-      })
-      .catch((errorCode) => {
-        let message = "На сервере произошла ошибка";
-        if (errorCode === 400)
-          message = "При обновлении профиля произошла ошибка";
-        if (errorCode === 409)
-          message = "Пользователь с таким email уже существует";
-        showAlertErrorHandler(message);
-      })
-      .finally(() => setIsLoading(false));
+  const saveProfileHandler = useCallback(
+    ({ name, email }) => {
+      api
+        .setUserInfo(name, email)
+        .then((user) => {
+          setCurrentUser({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+          });
+          showAlertSuccessHandler("Пользователь сохранен");
+        })
+        .catch((errorCode) => {
+          let message = "На сервере произошла ошибка";
+          if (errorCode === 400)
+            message = "При обновлении профиля произошла ошибка";
+          if (errorCode === 409)
+            message = "Пользователь с таким email уже существует";
+          showAlertErrorHandler(message);
+        })
+        .finally(() => setIsLoading(false));
 
-    console.log("сохранение", name, email);
-  }, [showAlertErrorHandler, showAlertSuccessHandler]);
-
-
+      console.log("сохранение", name, email);
+    },
+    [showAlertErrorHandler, showAlertSuccessHandler]
+  );
 
   useEffect(() => {
     setAlertMessage("");
@@ -204,7 +211,11 @@ function App() {
               setAlertError={showAlertErrorHandler}
             />
 
-            <ProtectedRoute path="/saved-movies" component={SavedMovies} />
+            <ProtectedRoute
+              path="/saved-movies"
+              component={SavedMovies}
+              setAlertError={showAlertErrorHandler}
+            />
             <Route>
               <Page404 />
             </Route>

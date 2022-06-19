@@ -9,122 +9,134 @@ import movieApi from "../../utils/MoviesApi";
 import api from "../../utils/MainApi";
 import filterForMovies from "../../utils/filter";
 import { setImageDomain, createMovieForBase } from "../../utils/movies";
+import {
+  getMoviesAllFromLocalStorage,
+  getMoviesFilteredFromLocalStorage,
+  getMoviesSavedFromLocalStorage,
+  getSearchIsMiniFromLocalStorage,
+  getSearchQueryFromLocalStorage,
+  setMoviesAllInLocalStorage,
+  setMoviesFilteredInLocalStorage,
+  setMoviesSavedInLocalStorage,
+  setSearchIsMiniInLocalStorage,
+  setSearchQueryInLocalStorage,
+} from "../../utils/localStorage";
 
 function Movies({ setAlertError }) {
-  const [moviesError, setMoviesError] = useState('');
   const [moviesAll, setMoviesAll] = useState([]);
   const [moviesSaved, setMoviesSaved] = useState([]);
   const [moviesFiltered, setMoviesFiltered] = useState([]);
+  const [moviesError, setMoviesError] = useState("");
 
   const [isSearching, setIsSearching] = useState(false);
-  const [fisrtSearching, setFirstSearching] = useState(true);
+  const [firstSearching, setFirstSearching] = useState(true);
 
   const [query, setQuery] = useState("");
   const [queryIsMiniMovie, setQueryIsMiniMovie] = useState(false);
 
   useEffect(() => {
-    if (localStorage.getItem("query"))
-      setQuery(localStorage.getItem("query"));
-    if (localStorage.getItem("qqueryIsMiniMovieery"))
-      setQueryIsMiniMovie(localStorage.getItem("queryIsMiniMovie"));
-    if (localStorage.getItem("moviesFiltered"))
-      setMoviesFiltered(JSON.parse(localStorage.getItem("moviesFiltered")));
-    if (localStorage.getItem("moviesSaved"))
-      setMoviesSaved(JSON.parse(localStorage.getItem("moviesSaved")));
+    getSearchQueryFromLocalStorage(setQuery);
+    getSearchIsMiniFromLocalStorage(setQueryIsMiniMovie);
+    getMoviesFilteredFromLocalStorage(setMoviesFiltered);
+    getMoviesSavedFromLocalStorage(setMoviesSaved);
+    getMoviesAllFromLocalStorage(setMoviesAll);
   }, []);
 
   useEffect(() => {
-    if (fisrtSearching) return;
-
-    getMoviesFromBaseHandle();
+    console.log('getSavedMoviesHandler');
     getSavedMoviesHandler();
-  }, [fisrtSearching]);
+  }, []);
 
   useEffect(() => {
-    console.log('change movies start filter');
+    setMoviesSavedInLocalStorage(moviesSaved);
+  }, [moviesSaved]);
+
+  useEffect(() => {
+    if (firstSearching) return;
+
+    getMoviesFromBaseHandle();
+  }, [firstSearching]);
+
+  useEffect(() => {
+    console.log("useEffect filter");
+    console.log('useEffect filter in', moviesAll.length > 0,  isSearching);
     if (moviesAll.length > 0) {
-      console.log('movies.length > 0');
-      setIsSearching(true);
-      getFilteredMoviesHandler(query, queryIsMiniMovie);
+      filterHandler();
     }
   }, [moviesAll, moviesSaved, isSearching, queryIsMiniMovie]);
 
   useEffect(() => {
+    if (moviesAll.length > 0 && isSearching) {
+      setMoviesFilteredInLocalStorage(moviesFiltered);
+    }
     setIsSearching(false);
   }, [moviesFiltered]);
-
-  const getSavedMoviesHandler = useCallback(() => {
-    api.getSavedMovies().then((movies) => {
-      setMoviesSaved(movies);
-      localStorage.setItem("moviesSaved", JSON.stringify(movies));
-    });
-  });
-
-  const getFilteredMoviesHandler = useCallback(
-    (query, queryIsMiniMovie) => {
-      console.log('getFilteredMoviesHandler');
-      const filterMovies = filterForMovies(moviesAll, query, queryIsMiniMovie);
-      console.log('filterMovies', filterMovies);
-      const newMovies = filterMovies.map((movie) => {
-        const saved = moviesSaved.find(item => {
-          return item.movieId === movie.id
-        });
-        movie._id = saved ? saved._id : null;
-        return movie;
-      })
-
-      console.log('filtered', newMovies);
-
-      setMoviesFiltered(newMovies);
-      localStorage.setItem("query", query);
-      localStorage.setItem(
-        "queryIsMiniMovie",
-        queryIsMiniMovie
-      );
-      localStorage.setItem("moviesFiltered", JSON.stringify(moviesFiltered));
-    },
-    [moviesFiltered, moviesAll, moviesSaved]
-  );
 
   const getMoviesFromBaseHandle = useCallback(() => {
     movieApi
       .getAllMovies()
       .then((items) => {
-        return items.map((item) => {
-          return setImageDomain(item);
-        });
+        return items.map((item) => setImageDomain(item));
       })
       .then((items) => {
         setMoviesAll(items);
-        setMoviesError('');
+        setMoviesAllInLocalStorage(items);
       })
       .catch(() => {
         let message =
           "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз";
         setMoviesError(message);
+      });
+  }, []);
+
+  const getSavedMoviesHandler = useCallback(() => {
+    api
+      .getSavedMovies()
+      .then((movies) => {
+        setMoviesSaved(movies);
+        setMoviesSavedInLocalStorage(movies);
       })
-      .finally(() => setIsSearching(false));
-  }, []);
-
-  const saveMovieHandler = useCallback((movie) => {
-    console.log("сохранить фильм", movie);
-    const movieSave = createMovieForBase(movie);
-
-    api.saveMovie(movieSave).then((data) => {
-      setMoviesSaved((prevState) => {
-        return [...prevState, data];
+      .catch((codeError) => {
+        let message =
+          "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз";
+        setAlertError(message);
       });
-    });
-  }, []);
+  }, [setAlertError]);
 
-  const deleteMovieHandler = useCallback((id) => {
-    console.log("удалить фильм", id);
-    api.deleteMovie(id).then((data) => {
-      setMoviesSaved((prevState) => {
-        return prevState.filter((movie) => movie._id !== id);
-      });
+  const filterHandler = useCallback(() => {
+    console.log("filterHandler");
+
+    const filterMovies = filterForMovies(moviesAll, query, queryIsMiniMovie);
+    const newMovies = filterMovies.map((movie) => {
+      const saved = moviesSaved.find((item) => item.movieId === movie.id);
+      movie._id = saved ? saved._id : null;
+      return movie;
     });
-  }, []);
+
+    console.log("filtered", newMovies);
+    setMoviesFiltered(newMovies);
+
+    setSearchQueryInLocalStorage(query);
+    setSearchIsMiniInLocalStorage(queryIsMiniMovie);
+    setMoviesFilteredInLocalStorage(moviesFiltered);
+  }, [moviesAll, moviesSaved, query, queryIsMiniMovie, moviesFiltered]);
+
+  const searchHandler = useCallback(() => {
+    console.log("search handler", firstSearching, query);
+    setMoviesError("");
+
+    if (!query) {
+      setMoviesError("Нужно ввести ключевое слово");
+      return;
+    }
+
+    if (firstSearching) {
+      console.log("search handler is firstSearching", firstSearching);
+      setFirstSearching(false);
+    }
+
+    setIsSearching(true);
+  }, [firstSearching, query]);
 
   const changeQueryHandler = useCallback((value) => {
     setQuery(value);
@@ -134,15 +146,43 @@ function Movies({ setAlertError }) {
     setQueryIsMiniMovie(value);
   }, []);
 
-  const searchHandler = useCallback(() => {
-    setIsSearching(true);
+  const saveMovieHandler = useCallback(
+    (movie) => {
+      console.log("сохранить фильм", movie);
+      const movieSave = createMovieForBase(movie);
 
-    if (fisrtSearching) {
-      console.log("searchHandler fisrtSearching", fisrtSearching);
-      setFirstSearching(false);
-      return;
-    }
-  }, [fisrtSearching]);
+      api
+        .saveMovie(movieSave)
+        .then((data) => {
+          setMoviesSaved((prevState) => {
+            return [...prevState, data];
+          });
+        })
+        .catch((errorCode) => {
+          let message = "На сервере произошла ошибка";
+          setAlertError(message);
+        });
+    },
+    [setAlertError]
+  );
+
+  const deleteMovieHandler = useCallback(
+    (id) => {
+      console.log("удалить фильм", id);
+      api
+        .deleteMovie(id)
+        .then((data) => {
+          setMoviesSaved((prevState) => {
+            return prevState.filter((movie) => movie._id !== id);
+          });
+        })
+        .catch((errorCode) => {
+          let message = "На сервере произошла ошибка";
+          setAlertError(message);
+        });
+    },
+    [setAlertError]
+  );
 
   return (
     <>
@@ -156,21 +196,13 @@ function Movies({ setAlertError }) {
           onChangeIsMiniMovie={changeIsMiniMovieHandler}
         />
 
-        {fisrtSearching && !moviesFiltered && (
-          <p className="movies-list__empty">
-            Воспользуйтесь поиском, чтобы найти фильм
-          </p>
-        )}
-
         {isSearching && <Preloader />}
 
         {!isSearching && moviesError && (
-          <p className="movies-list__empty">
-          Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз
-          </p>
+          <p className="movies-list__empty">{moviesError}</p>
         )}
 
-        {moviesFiltered && (
+        {!isSearching && moviesFiltered.length > 0 && (
           <MoviesCardList
             movies={moviesFiltered}
             nameKey="id"
@@ -179,7 +211,7 @@ function Movies({ setAlertError }) {
           />
         )}
 
-        {!fisrtSearching && !isSearching && moviesFiltered.length === 0 && (
+        {!firstSearching && !isSearching && moviesFiltered.length === 0 && (
           <p className="movies-list__empty">Ничего не найдено</p>
         )}
       </main>
