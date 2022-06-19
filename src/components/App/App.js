@@ -22,7 +22,9 @@ import "./App.css";
 function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [alertError, setAlertError] = useState("");
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertSucces, setAlertSucces] = useState(false);
+  const [profileError, setProfileError] = useState("");
   const [currentUser, setCurrentUser] = React.useState({
     _id: "",
     name: "",
@@ -33,7 +35,7 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-    setAlertError("");
+    setAlertMessage("");
   }, [location]);
 
   useEffect(() => {
@@ -60,7 +62,8 @@ function App() {
             message =
               "При авторизации произошла ошибка. Токен не передан или передан не в том формате";
 
-          setAlertError(message);
+          setAlertMessage(message);
+          setAlertSucces(false);
         });
     }
   }
@@ -79,7 +82,8 @@ function App() {
         if (errorCode === 401)
           message = "Вы ввели неправильный логин или пароль";
 
-        setAlertError(message);
+        setAlertMessage(message);
+        setAlertSucces(false);
       })
       .finally(() => setIsLoading(false));
   }, []);
@@ -99,7 +103,8 @@ function App() {
         if (errorCode === 409)
           message = "Пользователь с таким email уже существует";
 
-        setAlertError(message);
+          setAlertMessage(message);
+          setAlertSucces(false);
       })
       .finally(() => setIsLoading(false));
   }, []);
@@ -120,6 +125,8 @@ function App() {
           name: user.name,
           email: user.email,
         });
+        setAlertMessage('Пользователь сохранен');
+        setAlertSucces(true);
       })
       .catch((errorCode) => {
         let message = "На сервере произошла ошибка";
@@ -127,7 +134,8 @@ function App() {
           message = "При обновлении профиля произошла ошибка";
         if (errorCode === 409)
           message = "Пользователь с таким email уже существует";
-        setAlertError(message);
+        setProfileError(message);
+        setAlertSucces(false);
       })
       .finally(() => setIsLoading(false));
 
@@ -135,18 +143,19 @@ function App() {
   }, []);
 
   const closeAlertHandler = useCallback(() => {
-    setAlertError("");
+    setAlertMessage("");
   }, []);
 
   const showAlertErrorHandler = useCallback((text) => {
-    setAlertError(text);
+    setAlertMessage(text);
+    setAlertSucces(false);
   }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <IsLoggedContext.Provider value={loggedIn}>
         <IsLoaddingContext.Provider value={isLoading}>
-          <Alert text={alertError} onClose={closeAlertHandler} />
+          <Alert text={alertMessage} isSuccess={alertSucces} onClose={closeAlertHandler} />
 
           <Switch>
             <Route path="/" exact>
@@ -166,6 +175,8 @@ function App() {
               component={Profile}
               signOut={signOutHandler}
               onSubmit={saveProfileHandler}
+              profileError={profileError}
+              setProfileError={setProfileError}
             />
 
             <ProtectedRoute

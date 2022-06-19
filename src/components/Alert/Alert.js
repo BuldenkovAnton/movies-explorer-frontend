@@ -1,7 +1,11 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import closeImage from "../../images/menu_close.svg";
 
-function Alert({ text, onClose }) {
+function Alert({ text, isSuccess = false, onClose }) {
+  const alertClass = useMemo(() => {
+    return `alert ${isSuccess ? 'alert_success' : 'alert_error'}`
+  }, [isSuccess]);
+
   const closeHandler = useCallback((e) => {
     e.preventDefault();
 
@@ -11,7 +15,7 @@ function Alert({ text, onClose }) {
   return (
     <>
       {text && (
-        <div className="alert">
+        <div className={alertClass}>
           <div className="app__wrapper app__alert alert__container">
             <p className="alert__text">{text}</p>
 
