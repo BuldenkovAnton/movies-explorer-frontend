@@ -155,7 +155,7 @@ function App() {
             message = "При обновлении профиля произошла ошибка";
           if (errorCode === 409)
             message = "Пользователь с таким email уже существует";
-          showAlertErrorHandler(message);
+          setProfileError(message);
         })
         .finally(() => setIsLoading(false));
     },
