@@ -54,9 +54,11 @@ function Profile({ signOut, onSubmit, profileError, setProfileError }) {
   }, []);
 
   function handleBlur(e) {
-    if (e.target.name === 'name') setNameDirty(true);
-    if (e.target.name === 'email') setEmailDirty(true);
+    if (e.target.name === "name") setNameDirty(true);
+    if (e.target.name === "email") setEmailDirty(true);
   }
+
+  const onClickEditHandler = useCallback((e) => e.preventDefault(), []);
 
   const onSubmitHandler = useCallback(
     (e) => {
@@ -133,7 +135,10 @@ function Profile({ signOut, onSubmit, profileError, setProfileError }) {
 
             {!formValid && (
               <>
-                <button className="link form__button-link form__button_place_profile">
+                <button
+                  className="link form__button-link form__button_place_profile"
+                  onClick={onClickEditHandler}
+                >
                   Редактировать
                 </button>
 
