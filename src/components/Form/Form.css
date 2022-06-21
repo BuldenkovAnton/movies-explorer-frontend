@@ -84,6 +84,10 @@
   line-height: 12px;
 }
 
+.form__input-error_place_profile {
+  margin: 15px 0 0;
+}
+
 .form__button {
   font-family: 'Inter';
   font-style: normal;

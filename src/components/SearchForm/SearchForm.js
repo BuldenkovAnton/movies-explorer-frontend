@@ -1,24 +1,25 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import searchIcon from "../../images/search-icon.svg";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-function SearchForm({ onSubmit }) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchIsMiniMovie, setSearchIsMiniMovie] = useState(true);
+function SearchForm({ query, queryIsMiniMovie, onSubmit, onChangeQuery, onChangeIsMiniMovie }) {
+  const changeQueryHandler = useCallback((e) => {
+    onChangeQuery(e.target.value);
+  }, [onChangeQuery]);
 
-  const onChangeSearchQueryHandler = useCallback((e) => {
-    setSearchQuery(e.target.value);
-  }, []);
+  const changeIsMiniMovieHandler = useCallback((e) => {
+    onChangeIsMiniMovie(e.target.checked);
 
-  const onChangeSearchIsMiniMovieHandler = useCallback((e) => {
-    setSearchIsMiniMovie(e.target.checked);
-  }, []);
+    onSubmit();
+  }, [onChangeIsMiniMovie, onSubmit]);
 
-  const submitHandler = useCallback((e) => {
-    e.preventDefault();
-
-    onSubmit({query: searchQuery, isMini: searchIsMiniMovie});
-  }, [onSubmit, searchQuery, searchIsMiniMovie]);
+  const submitHandler = useCallback(
+    (e) => {
+      e.preventDefault();
+      onSubmit();
+    },
+    [onSubmit]
+  );
 
   return (
     <section className="search-form" aria-label="Поиск фильмов">
@@ -35,8 +36,8 @@ function SearchForm({ onSubmit }) {
               className="search-form__input"
               type="text"
               placeholder="Фильм"
-              value={searchQuery}
-              onChange={onChangeSearchQueryHandler}
+              value={query}
+              onChange={changeQueryHandler}
             />
             <button className="search-form__submit">Найти</button>
           </fieldset>
@@ -44,8 +45,8 @@ function SearchForm({ onSubmit }) {
           <fieldset className="search-form__fieldset search-form__fieldset_switch">
             <FilterCheckbox
               title="Короткометражки"
-              isChecked={searchIsMiniMovie}
-              onChange={onChangeSearchIsMiniMovieHandler}
+              isChecked={queryIsMiniMovie}
+              onChange={changeIsMiniMovieHandler}
             />
           </fieldset>
         </div>
@@ -53,8 +54,8 @@ function SearchForm({ onSubmit }) {
         <FilterCheckbox
           mixClass="filter-checkbox_show_tablet"
           title="Короткометражки"
-          isChecked={searchIsMiniMovie}
-          onChange={onChangeSearchIsMiniMovieHandler}
+          isChecked={queryIsMiniMovie}
+          onChange={changeIsMiniMovieHandler}
         />
       </form>
 

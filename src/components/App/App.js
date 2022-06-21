@@ -1,113 +1,231 @@
-import React, { useCallback, useState } from "react";
-import { Route, Switch } from "react-router-dom";
+import React, { useCallback, useEffect, useState } from "react";
+import { Route, Switch, useHistory, useLocation } from "react-router-dom";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { IsLoggedContext } from "../../contexts/IsLoggedContext";
+import { IsLoaddingContext } from "../../contexts/IsLoaddingContext";
 
+import api from "../../utils/MainApi";
+import getCookie from "../../utils/cookie";
+
+import Alert from "../Alert/Alert";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import Page404 from "../Page404/Page404";
 import Login from "../Login/Login";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
+import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
-import SavedMovies from "../SavedMovies/SavedMovies";
 
 import "./App.css";
+import {
+  removeMoviesAllInLocalStorage,
+  removeMoviesFilteredInLocalStorage,
+  removeMoviesSavedInLocalStorage,
+  removeSearchIsMiniInLocalStorage,
+  removeSearchQueryInLocalStorage,
+} from "../../utils/localStorage";
 
 function App() {
+  const [loggedIn, setLoggedIn] = React.useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [alertError, setAlerError] = useState("");
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertSucces, setAlertSucces] = useState(false);
+  const [profileError, setProfileError] = useState("");
+  const [currentUser, setCurrentUser] = React.useState({
+    _id: "",
+    name: "",
+    email: "",
+  });
 
-  const loginHandler = useCallback( ({ email, password }) => {
-    setIsLoading(true);
-    console.log("Авторизация");
+  const history = useHistory();
+  const location = useLocation();
 
-    setIsLoading(false);
+  const closeAlertHandler = useCallback(() => {
+    setAlertMessage("");
   }, []);
 
-  const registerHandler = useCallback(({ name, email, password }) => {
-    setIsLoading(true);
-    console.log("Регистрация");
-
-    setIsLoading(false);
+  const showAlertErrorHandler = useCallback((text) => {
+    setAlertMessage(text);
+    setAlertSucces(false);
   }, []);
+
+  const showAlertSuccessHandler = useCallback((text) => {
+    setAlertMessage(text);
+    setAlertSucces(true);
+  }, []);
+
+  const tokenCheck = useCallback(() => {
+    if (getCookie("jwtToken")) {
+      return api
+        .checkMe()
+        .then((user) => {
+          setCurrentUser({ _id: user._id, name: user.name, email: user.email });
+          setLoggedIn(true);
+        })
+        .catch((errorCode) => {
+          let message = "На сервере произошла ошибка";
+          if (errorCode === 401)
+            message =
+              "При авторизации произошла ошибка. Токен не передан или передан не в том формате";
+
+          showAlertErrorHandler(message);
+        });
+    }
+  }, [showAlertErrorHandler]);
+
+  const loginHandler = useCallback(
+    ({ email, password }) => {
+      setIsLoading(true);
+      setAlertMessage("");
+      removeDataInLocalStorage();
+
+      return api
+        .authorize(email, password)
+        .then((message) => {
+          tokenCheck();
+        })
+        .catch((errorCode) => {
+          let message = "На сервере произошла ошибка";
+          if (errorCode === 401)
+            message = "Вы ввели неправильный логин или пароль";
+
+          showAlertErrorHandler(message);
+        })
+        .finally(() => setIsLoading(false));
+    },
+    [showAlertErrorHandler, tokenCheck]
+  );
+
+  const registerHandler = useCallback(
+    ({ name, email, password }) => {
+      setIsLoading(true);
+      setAlertMessage("");
+
+      return api
+        .register(name, email, password)
+        .then((response) => {
+          loginHandler({email, password});
+        })
+        .catch((errorCode) => {
+          let message = "На сервере произошла ошибка";
+          if (errorCode === 400)
+            message = "При регистрации пользователя произошла ошибка";
+          if (errorCode === 409)
+            message = "Пользователь с таким email уже существует";
+
+          showAlertErrorHandler(message);
+        })
+        .finally(() => setIsLoading(false));
+    },
+    [showAlertErrorHandler, tokenCheck]
+  );
 
   const signOutHandler = useCallback(() => {
-    console.log("выход");
+    return api.logout().then((message) => {
+      removeDataInLocalStorage();
+      setLoggedIn(false);
+      history.push("/");
+    });
+  }, [history]);
+
+  const removeDataInLocalStorage = useCallback(() => {
+    removeMoviesAllInLocalStorage();
+    removeMoviesFilteredInLocalStorage();
+    removeMoviesSavedInLocalStorage();
+    removeSearchQueryInLocalStorage();
+    removeSearchIsMiniInLocalStorage();
   }, []);
 
-  const submitHandler = useCallback(({ name, email }) => {
-    console.log("сохранение", name, email);
-  }, []);
+  const saveProfileHandler = useCallback(
+    ({ name, email }) => {
+      api
+        .setUserInfo(name, email)
+        .then((user) => {
+          setCurrentUser({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+          });
+          showAlertSuccessHandler("Пользователь сохранен");
+        })
+        .catch((errorCode) => {
+          let message = "На сервере произошла ошибка";
+          if (errorCode === 400)
+            message = "При обновлении профиля произошла ошибка";
+          if (errorCode === 409)
+            message = "Пользователь с таким email уже существует";
+          setProfileError(message);
+        })
+        .finally(() => setIsLoading(false));
+    },
+    [showAlertErrorHandler, showAlertSuccessHandler]
+  );
 
-  const alertCloseHandler =useCallback(() => {
-    setAlerError("");
-  }, []);
+  useEffect(() => {
+    setAlertMessage("");
+  }, [location]);
 
-  const searchHandler = useCallback(({query, isMini}) => {
-    console.log("поиск по базе фильмов", query, isMini);
-  }, []);
+  useEffect(() => {
+    tokenCheck();
+  }, [tokenCheck]);
 
-  const saveMovieHandler = useCallback((movie) => {
-    console.log("сохранить фильм", movie);
-  }, []);
-
-  const deleteMovieHandler = useCallback((movieId) => {
-    console.log("удалить фильм", movieId);
-  }, []);
+  useEffect(() => {
+    if (loggedIn) {
+      history.push("/movies");
+    }
+  }, [loggedIn, history]);
 
   return (
-    <Switch>
-      <Route path="/" exact>
-        <Main />
-      </Route>
+    <CurrentUserContext.Provider value={currentUser}>
+      <IsLoggedContext.Provider value={loggedIn}>
+        <IsLoaddingContext.Provider value={isLoading}>
+          <Alert
+            text={alertMessage}
+            isSuccess={alertSucces}
+            onClose={closeAlertHandler}
+          />
 
-      <Route path="/signin">
-        <Login
-          alertError={alertError}
-          alertClose={alertCloseHandler}
-          onSubmit={loginHandler}
-          isLoading={isLoading}
-        />
-      </Route>
+          <Switch>
+            <Route path="/" exact>
+              <Main />
+            </Route>
 
-      <Route path="/signup">
-        <Register
-          alertError={alertError}
-          alertClose={alertCloseHandler}
-          onSubmit={registerHandler}
-          isLoading={isLoading}
-        />
-      </Route>
+            <Route path="/signin">
+              <Login onSubmit={loginHandler} />
+            </Route>
 
-      <Route path="/profile">
-        <Profile
-          alertError={alertError}
-          alertClose={alertCloseHandler}
-          signOut={signOutHandler}
-          onSubmit={submitHandler}
-        />
-      </Route>
+            <Route path="/signup">
+              <Register onSubmit={registerHandler} />
+            </Route>
 
-      <Route path="/movies">
-        <Movies
-          alertError={alertError}
-          alertClose={alertCloseHandler}
-          onSearch={searchHandler}
-          onSaveMovie={saveMovieHandler}
-        />
-      </Route>
+            <ProtectedRoute
+              path="/profile"
+              component={Profile}
+              signOut={signOutHandler}
+              onSubmit={saveProfileHandler}
+              profileError={profileError}
+              setProfileError={setProfileError}
+            />
 
-      <Route path="/saved-movies">
-        <SavedMovies
-          alertError={alertError}
-          alertClose={alertCloseHandler}
-          onSearch={searchHandler}
-          onDeleteMovie={deleteMovieHandler}
-        />
-      </Route>
+            <ProtectedRoute
+              path="/movies"
+              component={Movies}
+              setAlertError={showAlertErrorHandler}
+            />
 
-      <Route>
-        <Page404 />
-      </Route>
-    </Switch>
+            <ProtectedRoute
+              path="/saved-movies"
+              component={SavedMovies}
+              setAlertError={showAlertErrorHandler}
+            />
+            <Route>
+              <Page404 />
+            </Route>
+          </Switch>
+        </IsLoaddingContext.Provider>
+      </IsLoggedContext.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 

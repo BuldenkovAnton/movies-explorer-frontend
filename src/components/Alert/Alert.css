@@ -3,8 +3,15 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: red;
   color: #fff;
+}
+
+.alert_success {
+  background-color: green;
+}
+
+.alert_error {
+  background: red;
 }
 
 .alert__container {
